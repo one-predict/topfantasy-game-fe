@@ -1,0 +1,12 @@
+.coinsDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 8px;
+  width: fit-content;
+}
+
+.tokenImage {
+  width: 24px;
+  height: 24px;
+}

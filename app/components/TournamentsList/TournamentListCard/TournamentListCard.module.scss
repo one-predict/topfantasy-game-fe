@@ -1,0 +1,62 @@
+.tournamentListCard {
+  position: relative;
+  width: 100%;
+  padding: 46px 16px 16px;
+  border: 1px solid #8C8498;
+  background-color: #08042D;
+  border-radius: 12px;
+  overflow: hidden;
+
+  & * {
+    z-index: 1;
+  }
+}
+
+.tournamentAvailabilityInfo {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+}
+
+.titleWithParticipantsContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  width: calc(100% - 104px);
+  min-height: 94px;
+  margin-top: 24px;
+}
+
+.tournamentPrizeInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.tournamentImage {
+  width: 94px;
+  height: 94px;
+  position: absolute;
+  top: 64px;
+  right: 24px;
+  z-index: 2;
+}
+
+.tournamentImageShadow {
+  position: absolute;
+  top: 74px;
+  right: 46px;
+  width: 72px;
+  height: 72px;
+  z-index: 0;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  box-shadow: 0 0 100px 50px #3a1f66;
+}
+
+.viewDetailsButton {
+  width: fit-content;
+}

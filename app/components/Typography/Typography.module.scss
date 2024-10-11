@@ -1,0 +1,105 @@
+.color-primary {
+  color: #FFFFFF;
+}
+
+.color-secondary {
+  color: #439CB5;
+}
+
+.color-gray {
+  color: #8C8498;
+}
+
+.color-yellow {
+  color: #FFD700;
+}
+
+.color-green {
+  color: #10C600;
+}
+
+.color-red {
+  color: #D60000;
+}
+
+.color-black {
+  color: #000000;
+}
+
+.color-gradient1 {
+  background: linear-gradient(to right, #2CD8D5 0%, #6B8DD6 48%, #8E37D7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.color-gradient2 {
+  background: linear-gradient(to right, #2CD8D5 80%, #6B8DD6 85%, #8E37D7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.alignment-left {
+  text-align: left;
+}
+
+.alignment-center {
+  text-align: center;
+}
+
+.alignment-right {
+  text-align: right;
+}
+
+.variant-h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.variant-h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.variant-h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.variant-h4 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.variant-h5 {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.variant-h6 {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.variant-subtitle1 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.variant-subtitle2 {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.variant-body1 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.variant-body2 {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}

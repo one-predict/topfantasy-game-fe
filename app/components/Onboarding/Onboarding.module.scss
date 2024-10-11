@@ -1,0 +1,45 @@
+.onboarding {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.onboardingPanel {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 8px 16px 16px 8px;
+}
+
+.skipButton {
+  margin-left: auto;
+}
+
+.sliderContainer {
+  height: 100%;
+  overflow: hidden;
+}
+
+.sliderInnerContainer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.slider {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.tokenImage {
+  max-height: 100%;
+}
+
+.onboardingNextButtonPanel {
+  text-align: center;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
