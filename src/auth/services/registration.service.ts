@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectTransactionsManager, TransactionsManager } from '@core';
 import { InjectUserService, UserEntity, UserService } from '@user';
-import { InjectUserInventoryService, UserInventoryService } from '@inventory';
 import { InjectRewardsNotificationService } from '@rewards/decorators';
 import { RewardsNotificationService } from '@rewards/services';
 import { RewardsNotificationType } from '@rewards/enums';
@@ -25,7 +24,6 @@ export class DefaultRegistrationService implements RegistrationService {
 
   constructor(
     @InjectUserService() private readonly userService: UserService,
-    @InjectUserInventoryService() private readonly userInventoryService: UserInventoryService,
     @InjectRewardsNotificationService() private readonly rewardsNotificationService: RewardsNotificationService,
     @InjectTransactionsManager() private readonly transactionsManager: TransactionsManager,
   ) {}
@@ -41,8 +39,6 @@ export class DefaultRegistrationService implements RegistrationService {
         referralId: params.referralId,
         coinsBalance: this.INITIAL_COINS_BALANCE,
       });
-
-      await this.userInventoryService.create({ userId: user.getId() });
 
       await this.rewardsNotificationService.batchCreate({
         batch: [

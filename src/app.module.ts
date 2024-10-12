@@ -27,10 +27,6 @@ import { AuthModule } from '@auth';
 import { UserModule } from '@user';
 import { CoreModule } from '@core';
 import { CardModule } from '@card';
-import { InventoryModule } from '@inventory';
-import { PortfolioModule } from '@portfolio';
-import { MarketplaceModule } from '@marketplace';
-import { CoinModule } from '@coin';
 import { SqsModule } from '@sqs';
 import { SnsModule } from '@sns';
 import { EventsModule } from '@events';
@@ -55,8 +51,6 @@ import { SqsConsumersModule } from '@sqs-consumers';
         APPLICATION_ORIGIN: Joi.string().required(),
         AUTH_DOMAIN: Joi.string().required(),
         COOKIE_DOMAIN: Joi.string().optional(),
-        CRYPTO_COMPARE_API_KEY: Joi.string().required(),
-        CRYPTO_COMPARE_API_URL: Joi.string().required(),
         SESSIONS_SECRET: Joi.string().required(),
         TELEGRAM_BOT_TOKEN: Joi.string().required(),
         REDIS_URL: Joi.string().required(),
@@ -202,11 +196,7 @@ import { SqsConsumersModule } from '@sqs-consumers';
     CoreModule,
     AuthModule,
     UserModule,
-    PortfolioModule,
     CardModule,
-    CoinModule,
-    InventoryModule,
-    MarketplaceModule,
     QuestsModule,
     QuestsProcessingModule,
     ConsumersModule,
