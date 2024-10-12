@@ -14,7 +14,7 @@ import { TournamentParticipationCreatedEventData } from '@tournament/types';
 export interface CreateTournamentParticipationParams {
   userId: string;
   tournamentId: string;
-  selectedCards: string[];
+  selectedProjectIds: string[];
   walletAddress?: string;
 }
 
@@ -57,12 +57,6 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
         throw new UnprocessableEntityException(`Provided tournament doesn't exist.`);
       }
 
-      const currentTimestamp = getCurrentUnixTimestamp();
-
-      if (currentTimestamp >= tournament.getStartTimestamp()) {
-        throw new UnprocessableEntityException('Tournament is not available for participation.');
-      }
-
       const existingParticipation = await this.getUserParticipationInTournament(params.userId, params.tournamentId);
 
       if (existingParticipation) {
@@ -70,7 +64,7 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
       }
 
       if (!tournament.getIsTonConnected()) {
-        await this.userService.withdrawCoins(params.userId, tournament.getEntryPrice());
+        //await this.userService.withdrawCoins(params.userId, tournament.getEntryPrice());
       }
 
       await this.tournamentService.addParticipant(params.tournamentId);
@@ -79,7 +73,7 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
         tournament: params.tournamentId,
         user: params.userId,
         points: 0,
-        selectedCards: params.selectedCards,
+        selectedProjects: params.selectedProjectIds,
         walletAddress: params.walletAddress,
       });
 
@@ -92,8 +86,8 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
             id: tournamentParticipation.getId(),
             tournamentId: tournamentParticipation.getTournamentId(),
             userId: tournamentParticipation.getUserId(),
-            selectedCards: tournamentParticipation.getSelectedCards(),
-            points: tournamentParticipation.getPoints(),
+            selectedProjectIds: tournamentParticipation.getSelectedProjectIds(),
+            fantasyPoints: tournamentParticipation.getFantasyPoints(),
           },
         },
         meta: {

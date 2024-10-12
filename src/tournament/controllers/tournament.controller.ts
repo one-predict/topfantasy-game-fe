@@ -6,7 +6,6 @@ import { TournamentParticipationService, TournamentService } from '@tournament/s
 import { TournamentEntity, TournamentParticipationEntity } from '@tournament/entities';
 import {
   CreateTournamentParticipationDto,
-  CreateTournamentParticipationWithWalletAddressDto,
   ListLatestTournamentsDto,
 } from '@tournament/dto';
 
@@ -74,12 +73,12 @@ export default class TournamentController {
   public async joinTournament(
     @Session() session: secureSession.Session,
     @Param('id') tournamentId: string,
-    @Body() body: CreateTournamentParticipationWithWalletAddressDto,
+    @Body() body: CreateTournamentParticipationDto,
   ) {
     await this.tournamentParticipationService.create({
       tournamentId,
       userId: session.get('userId'),
-      selectedCards: [],
+      selectedProjectIds: body.selectedProjectIds,
       walletAddress: body.walletAddress,
     });
 
@@ -99,7 +98,7 @@ export default class TournamentController {
       endTimestamp: tournament.getEndTimestamp(),
       roundDurationInSeconds: tournament.getRoundDurationInSeconds(),
       isTonConnected: tournament.getIsTonConnected(),
-      cardsPool: tournament.getCardsPool(),
+      availableProjectIds: tournament.getAvailableProjectIds(),
     };
   }
 
@@ -108,7 +107,9 @@ export default class TournamentController {
       id: tournamentParticipation.getId(),
       userId: tournamentParticipation.getUserId(),
       tournamentId: tournamentParticipation.getTournamentId(),
-      points: tournamentParticipation.getPoints(),
+      selectedProjectIds: tournamentParticipation.getSelectedProjectIds(),
+      fantasyPoints: tournamentParticipation.getFantasyPoints(),
+      projectsFantasyPoints: tournamentParticipation.getProjectsFantasyPoints(),
       walletAddress: tournamentParticipation.getWalletAddress(),
     };
   }

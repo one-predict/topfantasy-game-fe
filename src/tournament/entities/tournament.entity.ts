@@ -14,7 +14,7 @@ export interface TournamentEntity {
   getRoundDurationInSeconds(): number;
   getImageUrl(): string | undefined;
   getIsTonConnected(): boolean;
-  getCardsPool(): Array<string>;
+  getAvailableProjectIds(): Array<string>;
 }
 
 export class MongoTournamentEntity implements TournamentEntity {
@@ -64,7 +64,7 @@ export class MongoTournamentEntity implements TournamentEntity {
     return this.tournamentDocument.isTonConnected;
   }
 
-  public getCardsPool() {
-    return this.tournamentDocument.cardsPool;
+  public getAvailableProjectIds() {
+    return this.tournamentDocument.availableProjects;
   }
 }

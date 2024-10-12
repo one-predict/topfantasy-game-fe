@@ -1,4 +1,4 @@
-import { IsIn, IsOptional, IsString } from 'class-validator';
+import {IsArray, IsIn, IsOptional, IsString} from 'class-validator';
 import { TournamentStatus } from '@tournament/enums';
 
 export class ListLatestTournamentsDto {
@@ -8,8 +8,12 @@ export class ListLatestTournamentsDto {
   status?: TournamentStatus;
 }
 
-export class CreateTournamentParticipationWithWalletAddressDto {
+export class CreateTournamentParticipationDto {
   @IsOptional()
   @IsString()
   walletAddress: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  selectedProjectIds: string[];
 }

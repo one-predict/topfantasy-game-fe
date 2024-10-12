@@ -40,6 +40,7 @@ import { RedisLockModule } from '@redis-lock';
 import { ConsumersModule } from '@consumers';
 import { SqsConsumersModule } from '@sqs-consumers';
 import { ProjectsModule } from '@projects';
+import {TournamentModule} from "@tournament";
 
 @Module({
   imports: [
@@ -200,6 +201,7 @@ import { ProjectsModule } from '@projects';
     QuestsProcessingModule,
     ConsumersModule,
     ProjectsModule,
+    TournamentModule,
   ],
 })
 export class AppModule {

@@ -17,7 +17,7 @@ import {
   TournamentParticipationSchema,
   TournamentSchema,
 } from '@tournament/schemas';
-import { TournamentParticipationController, TournamentController } from '@tournament/controllers';
+import { TournamentController } from '@tournament/controllers';
 import { TournamentQuestActionsDetectionConsumer } from './consumers';
 import TournamentModuleTokens from './tournament.module.tokens';
 
@@ -31,7 +31,7 @@ import TournamentModuleTokens from './tournament.module.tokens';
     EventsModule,
     DeduplicationModule,
   ],
-  controllers: [TournamentController, TournamentParticipationController],
+  controllers: [TournamentController],
   providers: [
     {
       provide: TournamentModuleTokens.Services.TournamentService,

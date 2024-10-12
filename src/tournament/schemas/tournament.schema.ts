@@ -33,8 +33,8 @@ export class Tournament {
   @Prop({ required: false, type: mongoose.Schema.Types.Boolean })
   isTonConnected?: boolean;
 
-  @Prop({ required: false, type: mongoose.Schema.Types.Array })
-  cardsPool?: Array<string>;
+  @Prop({ required: true, type: mongoose.Schema.Types.Array })
+  availableProjects: string[];
 }
 
 export const TournamentSchema = SchemaFactory.createForClass(Tournament);

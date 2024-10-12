@@ -18,7 +18,7 @@ export interface CreateTournamentParticipationEntityParams {
   user: string;
   tournament: string;
   points: number;
-  selectedCards: string[];
+  selectedProjects: string[];
   walletAddress?: string;
 }
 
@@ -27,7 +27,7 @@ export interface TournamentLeaderboard {
     id: string;
     username: string;
     imageUrl: string;
-    points: number;
+    fantasyPoints: number;
   }>;
 }
 
@@ -81,7 +81,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
         username: string;
         imageUrl: string;
       };
-      points: number;
+      fantasyPoints: number;
     }> = await this.tournamentParticipationModel
       .aggregate([
         { $match: { tournament: new ObjectId(tournamentId) } },
@@ -103,7 +103,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
               username: 1,
               imageUrl: 1,
             },
-            points: 1,
+            fantasyPoints: 1,
           },
         },
       ])
@@ -114,7 +114,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
         id: participation.user._id.toString(),
         username: participation.user.username,
         imageUrl: participation.user.imageUrl,
-        points: participation.points,
+        fantasyPoints: participation.fantasyPoints,
       })),
     };
   }
@@ -126,7 +126,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
           tournament: new ObjectId(tournamentId),
           user: new ObjectId(userId),
         },
-        { points: 1, _id: 1 },
+        { fantasyPoints: 1, _id: 1 },
       )
       .lean()
       .session(this.transactionsManager.getSession())
@@ -140,8 +140,8 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
       .aggregate([
         Match(
           Or([
-            { tournament: new ObjectId(tournamentId), points: Gt(participation.points) },
-            { tournament: new ObjectId(tournamentId), points: participation.points, _id: Gt(participation._id) },
+            { tournament: new ObjectId(tournamentId), fantasyPoints: Gt(participation.fantasyPoints) },
+            { tournament: new ObjectId(tournamentId), fantasyPoints: participation.fantasyPoints, _id: Gt(participation._id) },
           ]),
         ),
         { $sort: { points: -1, _id: 1 } },
@@ -160,7 +160,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
     return new MongoTournamentParticipationEntity(tournamentParticipationDocument);
   }
 
-  public async addPoints(userId: string, tournamentId: string, points: number) {
+  public async addPoints(userId: string, tournamentId: string, fantasyPoints: number) {
     await this.tournamentParticipationModel
       .updateOne(
         {
@@ -171,7 +171,7 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
           {
             $set: {
               points: {
-                $round: [{ $add: ['$points', points] }, 2],
+                $round: [{ $add: ['$fantasyPoints', fantasyPoints] }, 2],
               },
             },
           },

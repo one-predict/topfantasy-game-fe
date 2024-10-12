@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
-@Schema({ collection: 'tournament_participations' })
+@Schema({ collection: 'tournament_participations', minimize: false })
 export class TournamentParticipation {
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
   tournament: ObjectId;
@@ -11,13 +11,16 @@ export class TournamentParticipation {
   user: ObjectId;
 
   @Prop([{ required: true, type: mongoose.Schema.Types.String }])
-  selectedCards: string[];
+  selectedProjects: string[];
 
   @Prop({ required: true, type: mongoose.Schema.Types.Number })
-  points: number;
+  fantasyPoints: number;
 
   @Prop({ required: false, type: mongoose.Schema.Types.String })
   walletAddress: string;
+
+  @Prop({ required: false, type: mongoose.Schema.Types.Mixed, default: {} })
+  projectsFantasyPoints: Record<string, number>;
 }
 
 export const TournamentParticipationSchema = SchemaFactory.createForClass(TournamentParticipation);
