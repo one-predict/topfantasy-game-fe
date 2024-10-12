@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { GameCard } from '@api/GameCardApi';
+import { GameCard } from '@api/FantasyProjectApi';
 import GameCardPreview from '@components/GameCardPreview';
 import Typography from '@components/Typography';
 import styles from './GameCardDetails.module.scss';

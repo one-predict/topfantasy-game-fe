@@ -13,8 +13,6 @@ interface PageLayoutProps {
   background?: PageLayoutBackground;
 }
 
-const DEFAULT_BACKGROUND_IMAGE = '/images/background.png';
-
 const PageLayout = ({ children, background }: PageLayoutProps) => {
   return <div className={clsx(styles.pageLayout, background?.overlay && styles.pageLayoutWithOverlay)}>{children}</div>;
 };

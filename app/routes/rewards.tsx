@@ -23,10 +23,6 @@ type RewardsCategory = 'tasks' | 'referrals';
 
 export const handle = {
   appSection: AppSection.Rewards,
-  background: {
-    image: '/images/rewards-page-background.png',
-    overlay: true,
-  },
 };
 
 const RewardsPage = () => {

@@ -1,4 +1,4 @@
-import { GameCard } from '@api/GameCardApi';
+import { GameCard } from '@api/FantasyProjectApi';
 import { PopupProps } from '@components/Popup';
 import Popup from '@components/Popup';
 import GameCardDetails from '@components/GameCardDetails';

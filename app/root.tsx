@@ -12,7 +12,7 @@ import { ApiProvider, ApiProviderValue } from '@providers/ApiProvider';
 import { HttpAuthApi } from '@api/AuthApi';
 import { HttpUserApi } from '@api/UserApi';
 import { HttpTournamentApi } from '@api/TournamentApi';
-import { HttpGameCardApi } from '@api/GameCardApi';
+import { HttpFantasyProjectCardApi } from '@api/FantasyProjectApi';
 import { HttpReferralApi } from '@api/ReferralApi';
 import { HttpRewardsNotificationApi } from '@api/RewardsNotificationApi';
 import { HttpQuestApi } from '@api/QuestApi';
@@ -52,7 +52,7 @@ export function Layout({ children }: { children: ReactNode }) {
 export function HydrateFallback() {
   return (
     <>
-      <LoadingScreen progress={0} />
+      <LoadingScreen />
     </>
   );
 }
@@ -88,7 +88,7 @@ const App = () => {
       authApi: new HttpAuthApi(apiClient),
       userApi: new HttpUserApi(apiClient),
       tournamentApi: new HttpTournamentApi(apiClient),
-      gameCardApi: new HttpGameCardApi(apiClient),
+      fantasyProjectApi: new HttpFantasyProjectCardApi(apiClient),
       referralApi: new HttpReferralApi(apiClient),
       rewardsNotificationApi: new HttpRewardsNotificationApi(apiClient),
       questApi: new HttpQuestApi(apiClient),
@@ -102,9 +102,6 @@ const App = () => {
         <TonConnectUIProvider
           manifestUrl="https://s3.eu-central-1.amazonaws.com/game.aipick.io/tonconnect-manifest.json"
           uiPreferences={{ theme: THEME.DARK }}
-          // actionsConfiguration={{
-          //   twaReturnUrl: 'https://t.me/DemoDappWithTonConnectBot/demo',
-          // }}
         >
           <QueryClientProvider client={queryClient}>
             <ApiProvider value={services}>

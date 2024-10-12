@@ -1,0 +1,12 @@
+.fantasyCardsPickerContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.confirmButton {
+  position: fixed;
+  width: calc(100% - 32px);
+  bottom: 100px;
+}

@@ -3,30 +3,33 @@ import Button from '@components/Button';
 import Typography from '@components/Typography';
 import TournamentAvailabilityInfo from '@components/TournamentAvailabilityInfo';
 import LabeledContent from '@components/LabeledContent';
-import CardBackground from '@assets/icons/tournament-card-background.svg?react';
 import CoinsDisplay from '@components/CoinsDisplay';
 import TournamentFragmentIcon from '@assets/icons/tournament-ticket-fragment.svg?react';
-import styles from './TournamentListCard.module.scss';
 import CardsShortPreview from '@app/components/CardsShortPreview/CardsShortPreview';
+import styles from './TournamentListCard.module.scss';
+import useFantasyProjectsByIdsQuery from "@hooks/queries/useFantasyProjectsByIdsQuery";
 
 export interface TournamentListCardProps {
   tournament: Tournament;
-  onViewDetailsClick: (tournament: Tournament) => void;
+  onPlayTournamentClick: (tournament: Tournament) => void;
 }
 
-const TournamentListCard = ({ tournament, onViewDetailsClick }: TournamentListCardProps) => {
+const TournamentListCard = ({ tournament, onPlayTournamentClick }: TournamentListCardProps) => {
   const prizePool = tournament.entryPrice * tournament.participantsCount + tournament.staticPrizePool;
+
+  const { data: availableProjects } = useFantasyProjectsByIdsQuery(tournament.availableProjectIds);
 
   return (
     <div className={styles.tournamentListCardContainer}>
       <div className={styles.tournamentListCard}>
         <TournamentAvailabilityInfo className={styles.tournamentAvailabilityInfo} tournament={tournament} />
-
         <div className={styles.titleWithParticipantsContainer}>
           <Typography variant="h2" color="black">
             {tournament.title}
           </Typography>
-          <CardsShortPreview pool={tournament.cardsPool} />
+          {availableProjects && (
+            <CardsShortPreview projects={availableProjects} />
+          )}
           <LabeledContent row title="Participants:" color="black">
             <Typography variant="body2" color="black">
               {tournament.participantsCount}
@@ -54,9 +57,8 @@ const TournamentListCard = ({ tournament, onViewDetailsClick }: TournamentListCa
           </LabeledContent>
         </div>
         <div className={styles.playButtonContainer}>
-          <Button onClick={() => onViewDetailsClick(tournament)}>Play</Button>
+          <Button onClick={() => onPlayTournamentClick(tournament)}>Play</Button>
         </div>
-
         <div className={styles.tournamentCardBackground} />
       </div>
       <TournamentFragmentIcon className={styles.tournamentTicketFragment} />

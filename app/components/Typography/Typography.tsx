@@ -7,8 +7,6 @@ export type TypographyVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subti
 export type TypographyColor =
   | 'primary'
   | 'secondary'
-  | 'gradient1'
-  | 'gradient2'
   | 'gray'
   | 'yellow'
   | 'green'

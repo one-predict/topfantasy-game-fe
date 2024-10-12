@@ -34,18 +34,6 @@ const sections: MenuSection[] = [
     link: '/',
     section: AppSection.Home,
   },
-  {
-    title: 'Notifications',
-    icon: <NotificationsIcon />,
-    link: '/store',
-    section: AppSection.Store,
-  },
-  {
-    title: 'Profile',
-    icon: <ProfileIcon />,
-    link: '/rewards',
-    section: AppSection.Rewards,
-  },
 ];
 
 const MenuTabBar = ({ className }: MenuTabProps) => {
@@ -66,7 +54,7 @@ const MenuTabBar = ({ className }: MenuTabProps) => {
             onClick={() => navigate(item.link)}
           >
             {item.icon}
-            <Typography className={styles.menuSectionTitle} color="gray" variant="body2" key={index}>
+            <Typography className={styles.menuSectionTitle} color="primary" variant="body2" key={index}>
               {item.title}
             </Typography>
           </div>

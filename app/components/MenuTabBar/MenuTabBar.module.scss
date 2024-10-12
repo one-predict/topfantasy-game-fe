@@ -25,16 +25,6 @@
     height: 24px;
     stroke: #FFFFFF;
   }
-
-  &::after {
-    visibility: hidden;
-    content: '';
-    position: absolute;
-    top: -12px;
-    width: 100%;
-    height: 1px;
-    background: #FFFFFF;
-  }
 }
 
 .selectedMenuSection {

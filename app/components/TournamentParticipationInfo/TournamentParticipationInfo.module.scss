@@ -1,0 +1,29 @@
+.participationInfoContainer {
+  display: flex;
+  flex-direction: row;
+  row-gap: 4px;
+  border-bottom: 1px solid #9DBCFF33;
+}
+
+.participationInfoInnerContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 16px 0 16px;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+}
+
+.fantasyPointsDisplay {
+  margin-left: auto;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  margin-left: 16px;
+  column-gap: 8px;
+}

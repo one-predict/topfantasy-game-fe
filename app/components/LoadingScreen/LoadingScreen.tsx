@@ -1,22 +1,16 @@
 import { PageLayout } from '@components/Layouts';
-import styles from './LoadingScreen.module.scss';
 import Typography from '@components/Typography';
-import ProgressLoader from '@components/ProgressLoader';
+import styles from './LoadingScreen.module.scss';
 
-export interface LoadingScreenProps {
-  progress: number;
-}
-
-const LoadingScreen = ({ progress }: LoadingScreenProps) => {
+const LoadingScreen = () => {
   return (
     <PageLayout>
-      <div className={styles.overlay}>
-        <img className={styles.logoImage} src="/images/big-logo.png" alt="Logo" />
-        <Typography className={styles.loadingTypography} color="primary">
-          Loading...
-        </Typography>
-        <ProgressLoader className={styles.loader} progress={progress} />
-      </div>
+      <figure className={styles.loader}>
+        <div className={styles.loaderElement} />
+        <div className={styles.loaderElement} />
+        <div className={styles.loaderElement} />
+      </figure>
+      <Typography variant="h1" className={styles.loadingText}>Loading...</Typography>
     </PageLayout>
   );
 };

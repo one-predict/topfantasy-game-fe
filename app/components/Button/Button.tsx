@@ -3,19 +3,16 @@ import clsx from 'clsx';
 import ButtonLoader from './ButtonLoader';
 import styles from './Button.module.scss';
 
-export type ButtonSize = 'default' | 'large';
-
 export interface ButtonProps {
   className?: string;
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   loading?: boolean;
-  size?: ButtonSize;
   darkLoader?: boolean;
 }
 
-const Button = ({ children, disabled, darkLoader, className, onClick, loading, size }: ButtonProps) => {
+const Button = ({ children, disabled, className, onClick, loading }: ButtonProps) => {
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (loading || disabled) {
       return;
@@ -31,13 +28,12 @@ const Button = ({ children, disabled, darkLoader, className, onClick, loading, s
         {
           [styles.loadingButton]: loading,
         },
-        styles[`button-${size}`],
         className,
       )}
       onClick={handleButtonClick}
       disabled={disabled}
     >
-      <span>{loading ? <ButtonLoader dark={darkLoader} /> : children}</span>
+      <span>{loading ? <ButtonLoader dark /> : children}</span>
     </button>
   );
 };

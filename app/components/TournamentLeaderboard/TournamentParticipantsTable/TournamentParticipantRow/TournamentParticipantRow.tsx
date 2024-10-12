@@ -1,9 +1,9 @@
 import { TournamentParticipant } from '@api/TournamentApi';
 import { TableBodyCell, TableRow } from '@components/Table';
-import styles from './TournamentParticipantRow.module.scss';
 import UserAvatar from '@components/UserAvatar';
+import FantasyPointsDisplay from "@components/FantasyPointsDisplay";
 import CupIcon from '@assets/icons/cup2.svg?react';
-import ColoredPoints from '@app/components/ColoredPoints';
+import styles from './TournamentParticipantRow.module.scss';
 
 export interface TournamentParticipantRowProps {
   rowCellWidthConfig: number[];
@@ -11,12 +11,18 @@ export interface TournamentParticipantRowProps {
   index: number;
 }
 
+const MAX_INDEX_FOR_CUP_ICON = 10;
+
 const TournamentParticipantRow = ({ rowCellWidthConfig, participant, index }: TournamentParticipantRowProps) => {
   return (
     <TableRow cellWidthConfig={rowCellWidthConfig}>
       <TableBodyCell
-        className={styles.prizePlace}
-        beforeOverflowedContent={<CupIcon className={styles.cupIcon} />}
+        overflowedContentClassName={styles.rankCellOverflowedContent}
+        beforeOverflowedContent={(
+          <>
+            {index <= MAX_INDEX_FOR_CUP_ICON && <CupIcon className={styles.cupIcon} />}
+          </>
+        )}
         overflowed
       >
         {index + 1}
@@ -32,17 +38,9 @@ const TournamentParticipantRow = ({ rowCellWidthConfig, participant, index }: To
         overflowed
       >
         {participant.username}
-        <ColoredPoints points={participant.points}></ColoredPoints>
       </TableBodyCell>
-      <TableBodyCell
-        className={styles.pointsText}
-        beforeOverflowedContent={<img src={'/images/token.png'} className={styles.pointsImg}></img>}
-        overflowed
-      >
-        {
-          // TODO add rewards
-        }
-        0
+      <TableBodyCell className={styles.pointsText}>
+        <FantasyPointsDisplay points={participant.fantasyPoints} />
       </TableBodyCell>
     </TableRow>
   );

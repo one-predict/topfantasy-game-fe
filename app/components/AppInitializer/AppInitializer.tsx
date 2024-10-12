@@ -56,15 +56,11 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
   const { mutateAsync: signIn } = useSignInMutation();
   const { mutateAsync: acknowledgeRewardsNotification } = useAckRewardsNotificationMutation();
 
-  const [showLoading, setShowLoading] = useDelayedState(true, RESET_LOADING_DELAY);
-
   const { data: myRewardsNotifications } = useMyRewardsNotificationsQuery({
     enabled: !!currentUser,
   });
 
   const launchParams = useLaunchParams(true);
-
-  const [loadingProgress, loadingFinished] = useResourcesLoadingProgress([currentUser, myRewardsNotifications]);
 
   useAsyncEffect(async () => {
     if (launchParams?.initDataRaw && currentUser === null) {
@@ -75,17 +71,11 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     }
   }, [launchParams, currentUser]);
 
-  useEffect(() => {
-    if (loadingFinished) {
-      setShowLoading(false);
-    }
-  }, [setShowLoading, loadingFinished]);
-
   const [notification] = myRewardsNotifications || [];
 
   const renderApplication = () => {
-    if (!currentUser || !myRewardsNotifications || showLoading) {
-      return <LoadingScreen progress={loadingProgress} />;
+    if (!currentUser || !myRewardsNotifications) {
+      return <LoadingScreen />;
     }
 
     if (!currentUser.onboarded) {
@@ -95,7 +85,7 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     return <>{children}</>;
   };
 
-  const isNotificationFixedSlideVisible = !showLoading && !!currentUser?.onboarded && !!notification;
+  const isNotificationFixedSlideVisible = !!currentUser?.onboarded && !!notification;
 
   return (
     <SessionProvider currentUser={currentUser}>

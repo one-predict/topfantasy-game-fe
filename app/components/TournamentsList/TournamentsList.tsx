@@ -7,7 +7,7 @@ import styles from './TournamentsList.module.scss';
 export interface TournamentsListProps {
   className?: string;
   tournaments: Tournament[];
-  onViewTournamentDetailsClick: (tournament: Tournament) => void;
+  onPlayTournamentClick: (tournament: Tournament) => void;
 }
 
 /*
@@ -26,7 +26,7 @@ export interface TournamentsListProps {
     },
 */
 
-const TournamentsList = ({ className, tournaments, onViewTournamentDetailsClick }: TournamentsListProps) => {
+const TournamentsList = ({ className, tournaments, onPlayTournamentClick }: TournamentsListProps) => {
   if (!tournaments.length) {
     return (
       <Typography variant="subtitle1" className={styles.noTournamentsMessage}>
@@ -41,7 +41,7 @@ const TournamentsList = ({ className, tournaments, onViewTournamentDetailsClick 
         <TournamentListCard
           key={tournament.id}
           tournament={tournament}
-          onViewDetailsClick={onViewTournamentDetailsClick}
+          onPlayTournamentClick={onPlayTournamentClick}
         />
       ))}
     </div>

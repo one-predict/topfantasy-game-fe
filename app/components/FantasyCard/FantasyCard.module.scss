@@ -1,0 +1,34 @@
+.fantasyCard {
+  background: #242424;
+  padding: 4px 4px 8px 4px;
+  border-radius: 4px;
+}
+
+.selectedFantasyCard {
+  background: linear-gradient(90deg, #E6B980 0%, #EACDA3 100%);
+}
+
+.notAvailableFantasyCard .fantasyCardImage {
+  opacity: 0.2;
+}
+
+.notAvailableFantasyCard .socialName {
+  color: #696969;
+}
+
+.notAvailableFantasyCard .starIcon {
+  fill: #696969;
+}
+
+.selectedFantasyCard .starIcon {
+  fill: #FFFFFF;
+}
+
+.fantasyCardImage {
+  width: 100%;
+  height: fit-content;
+}
+
+.starsDisplay {
+  margin: 8px 0;
+}

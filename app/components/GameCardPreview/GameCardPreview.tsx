@@ -1,6 +1,6 @@
 import { ReactNode, useMemo, MouseEvent } from 'react';
 import clsx from 'clsx';
-import { GameCard, GameCardRarity } from '@api/GameCardApi';
+import { GameCard, GameCardRarity } from '@api/FantasyProjectApi';
 import useAnimationEffect from '@hooks/useAnimationEffect';
 import Typography, { TypographyProps } from '@components/Typography';
 import InfoIcon from '@assets/icons/info.svg?react';

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import clsx from 'clsx';
-import { GameCard } from '@api/GameCardApi';
+import { GameCard } from '@api/FantasyProjectApi';
 import GameCardPreview from '@components/GameCardPreview';
 import styles from './GameCardsGrid.module.scss';
 

@@ -15,24 +15,30 @@ export interface Tournament {
   participantsCount: number;
   startTimestamp: number;
   endTimestamp: number;
-  roundDurationInSeconds: number;
   imageUrl?: string;
   isTonConnected?: boolean;
-  cardsPool: Array<string>;
+  availableProjectIds: Array<string>;
+}
+
+export interface JoinTournamentParams {
+  tournamentId: string;
+  selectedProjectIds: string[];
+  walletAddress?: string;
 }
 
 export interface TournamentParticipant {
   id: string;
   username: string;
   imageUrl: string;
-  points: number;
+  fantasyPoints: number;
 }
 
 export interface TournamentParticipation {
   id: string;
   userId: string;
   tournamentId: string;
-  points: number;
+  fantasyPoints: number;
+  selectedProjectIds: string[];
 }
 
 export interface TournamentLeaderboard {
@@ -40,7 +46,7 @@ export interface TournamentLeaderboard {
     id: string;
     username: string;
     imageUrl: string;
-    points: number;
+    fantasyPoints: number;
   }>;
 }
 
@@ -50,7 +56,7 @@ export interface TournamentApi {
   getTournamentLeaderboard(tournamentId: string): Promise<TournamentLeaderboard>;
   getTournamentParticipation(tournamentId: string): Promise<TournamentParticipation | null | undefined>;
   getTournamentParticipationRank(tournamentId: string): Promise<number>;
-  joinTournament(tournamentId: string, walletAddress: string): Promise<void>;
+  joinTournament(params: JoinTournamentParams): Promise<void>;
 }
 
 export class HttpTournamentApi implements TournamentApi {
@@ -92,9 +98,10 @@ export class HttpTournamentApi implements TournamentApi {
     return rank;
   }
 
-  public async joinTournament(tournamentId: string, walletAddress: string) {
-    await this.client.makeCall<{ success: boolean }>(`/tournaments/${tournamentId}/participation`, 'POST', {
-      walletAddress,
+  public async joinTournament(params: JoinTournamentParams) {
+    await this.client.makeCall<{ success: boolean }>(`/tournaments/${params.tournamentId}/participation`, 'POST', {
+      walletAddress: params.walletAddress,
+      selectedProjectIds: params.selectedProjectIds,
     });
   }
 }

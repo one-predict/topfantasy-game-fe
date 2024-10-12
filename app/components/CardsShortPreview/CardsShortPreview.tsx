@@ -1,17 +1,30 @@
-import { useMemo } from 'react';
+import { FantasyProject } from "@api/FantasyProjectApi";
 import styles from './CardsShortPreview.module.scss';
-import { cardsTournamentPoolPreview } from '@app/data/cards-pool-preview';
+import {useMemo} from "react";
+import Typography from "@components/Typography";
 
 export interface CardsShortPreviewProps {
-  pool: Array<string>;
+  projects: FantasyProject[];
+  maxProjectsToDisplay?: number;
 }
 
-const CardsShortPreview = ({ pool }: CardsShortPreviewProps) => {
+const DEFAULT_MAX_PROJECTS_TO_DISPLAY = 5;
+
+const CardsShortPreview = ({ projects, maxProjectsToDisplay = DEFAULT_MAX_PROJECTS_TO_DISPLAY }: CardsShortPreviewProps) => {
+  const limitedProjects = useMemo(() => {
+    return projects.slice(0, maxProjectsToDisplay!);
+  }, [projects]);
+
   return (
     <div className={styles.cardsPreviewContainer}>
-      {pool.map((card) => {
-        return <img className={styles.cardPreviewImage} src={cardsTournamentPoolPreview[card]?.image} />;
+      {limitedProjects.map((project) => {
+        return <img key={project.id} className={styles.cardPreviewImage} src={project.imageUrl} />;
       })}
+      {limitedProjects.length !== projects.length && (
+        <div className={styles.moreInfo}>
+          <Typography variant="h3" color="black">+{projects.length - limitedProjects.length}</Typography>
+        </div>
+      )}
     </div>
   );
 };

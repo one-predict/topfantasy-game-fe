@@ -1,12 +1,8 @@
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { DefaultError, useMutation, useQueryClient } from '@tanstack/react-query';
+import { JoinTournamentParams } from "@api/TournamentApi";
 import { useTournamentApi } from '@providers/ApiProvider';
-
-interface TournamentParticipationParams {
-  tournamentId: string;
-  walletAddress?: string;
-}
 
 const useJoinTournamentMutation = () => {
   const tournamentApi = useTournamentApi();
@@ -14,7 +10,7 @@ const useJoinTournamentMutation = () => {
   const queryClient = useQueryClient();
 
   const handleMutationSuccess = useCallback(
-    async (_result: void, params: TournamentParticipationParams) => {
+    async (_result: void, params: JoinTournamentParams) => {
       await Promise.all([
         await queryClient.invalidateQueries({
           queryKey: ['tournament-participations', { tournamentId: params.tournamentId }],
@@ -27,9 +23,6 @@ const useJoinTournamentMutation = () => {
         }),
         await queryClient.invalidateQueries({ queryKey: ['tournaments', { tournamentId: params.tournamentId }] }),
         await queryClient.invalidateQueries({ queryKey: ['current-user'] }),
-        await queryClient.invalidateQueries({
-          queryKey: ['tournament-decks', { tournamentId: params.tournamentId, my: true }],
-        }),
       ]);
 
       toast.success(`You have successfully joined the tournament!`);
@@ -37,8 +30,8 @@ const useJoinTournamentMutation = () => {
     [queryClient],
   );
 
-  return useMutation<void, DefaultError, TournamentParticipationParams>({
-    mutationFn: (params) => tournamentApi.joinTournament(params.tournamentId, params.walletAddress),
+  return useMutation<void, DefaultError, JoinTournamentParams>({
+    mutationFn: (params) => tournamentApi.joinTournament(params),
     onSuccess: handleMutationSuccess,
   });
 };

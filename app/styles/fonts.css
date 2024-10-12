@@ -1,25 +1,25 @@
 @font-face {
-  font-family: 'Orbitron';
-  src: url('/fonts/Orbitron-Regular.woff2') format('woff2'),
-  url('/fonts/Orbitron-Regular.woff2') format('woff');
+  font-family: 'SF Pro Display';
+  src: url('/fonts/Sf-Pro-Display-Regular.woff2') format('woff2'),
+  url('/fonts/Sf-Pro-Display-Regular.woff2') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Orbitron';
-  src: url('/fonts/Orbitron-Bold.woff2') format('woff2'),
-  url('/fonts/Orbitron-Bold.woff2') format('woff');
+  font-family: 'SF Pro Display';
+  src: url('/fonts/Sf-Pro-Display-Bold.woff2') format('woff2'),
+  url('/fonts/Sf-Pro-Display-Bold.woff2') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Orbitron';
-  src: url('/fonts/Orbitron-Medium.woff2') format('woff2'),
-  url('/fonts/Orbitron-Medium.woff2') format('woff');
+  font-family: 'SF Pro Display';
+  src: url('/fonts/Sf-Pro-Display-Medium.woff2') format('woff2'),
+  url('/fonts/Sf-Pro-Display-Medium.woff2') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
