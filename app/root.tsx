@@ -11,16 +11,9 @@ import { RestApiClient } from '@api/ApiClient';
 import { ApiProvider, ApiProviderValue } from '@providers/ApiProvider';
 import { HttpAuthApi } from '@api/AuthApi';
 import { HttpUserApi } from '@api/UserApi';
-import { HttpPortfolioApi } from '@api/PortfolioApi';
-import { HttpTokensOfferApi } from '@api/TokensOfferApi';
 import { HttpTournamentApi } from '@api/TournamentApi';
 import { HttpGameCardApi } from '@api/GameCardApi';
-import { HttpUserInventoryApi } from '@api/UserInventoryApi';
-import { HttpTournamentDeckApi } from '@api/TournamentDeck';
-import { HttpGameCardsMarketplaceApi } from '@api/GameCardsMarketplaceApi';
-import { HttpCoinsPricingInfoApi } from '@api/CoinsPricingInfoApi';
 import { HttpReferralApi } from '@api/ReferralApi';
-import { HttpCoinsHistoryApi } from '@api/CoinsHistoryApi';
 import { HttpRewardsNotificationApi } from '@api/RewardsNotificationApi';
 import { HttpQuestApi } from '@api/QuestApi';
 import { PageLayoutWithMenu } from '@components/Layouts';
@@ -94,16 +87,9 @@ const App = () => {
     return {
       authApi: new HttpAuthApi(apiClient),
       userApi: new HttpUserApi(apiClient),
-      portfolioApi: new HttpPortfolioApi(apiClient),
-      tokensOfferApi: new HttpTokensOfferApi(apiClient),
       tournamentApi: new HttpTournamentApi(apiClient),
       gameCardApi: new HttpGameCardApi(apiClient),
-      userInventoryApi: new HttpUserInventoryApi(apiClient),
-      tournamentDeckApi: new HttpTournamentDeckApi(apiClient),
-      gameCardsMarketplaceApi: new HttpGameCardsMarketplaceApi(apiClient),
-      coinsPricingInfoApi: new HttpCoinsPricingInfoApi(apiClient),
       referralApi: new HttpReferralApi(apiClient),
-      coinsHistoryApi: new HttpCoinsHistoryApi(apiClient),
       rewardsNotificationApi: new HttpRewardsNotificationApi(apiClient),
       questApi: new HttpQuestApi(apiClient),
     };

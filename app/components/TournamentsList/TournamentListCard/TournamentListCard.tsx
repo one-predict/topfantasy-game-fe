@@ -46,7 +46,6 @@ const TournamentListCard = ({ tournament, onViewDetailsClick }: TournamentListCa
       <Button className={styles.viewDetailsButton} onClick={() => onViewDetailsClick(tournament)}>
         View Details
       </Button>
-
     </div>
   );
 };
