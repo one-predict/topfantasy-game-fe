@@ -21,7 +21,7 @@ export default class TournamentController {
   @Get('/tournaments/latest')
   @UseGuards(AuthGuard)
   public async getLatestTournaments(@Query() query: ListLatestTournamentsDto) {
-    const latestTournaments = await this.tournamentService.listLatest(query.status);
+    const latestTournaments = await this.tournamentService.listLatest();
 
     return latestTournaments.map((tournament) => this.mapTournamentEntityToViewModel(tournament));
   }
@@ -98,6 +98,7 @@ export default class TournamentController {
       endTimestamp: tournament.getEndTimestamp(),
       roundDurationInSeconds: tournament.getRoundDurationInSeconds(),
       isTonConnected: tournament.getIsTonConnected(),
+      cardsPool: tournament.getCardsPool(),
     };
   }
 
