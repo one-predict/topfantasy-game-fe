@@ -6,6 +6,7 @@ export interface TournamentParticipationEntity {
   getId(): string;
   getTournamentId(): string;
   getUserId(): string;
+  getSelectedCards(): string[];
   getPoints(): number;
   getWalletAddress(): string;
 }
@@ -27,6 +28,10 @@ export class MongoTournamentParticipationEntity implements TournamentParticipati
 
   public getUserId() {
     return this.tournamentParticipationDocument.user.toString();
+  }
+
+  public getSelectedCards() {
+    return this.tournamentParticipationDocument.selectedCards;
   }
 
   public getPoints() {

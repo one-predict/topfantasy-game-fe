@@ -10,6 +10,9 @@ export class TournamentParticipation {
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
   user: ObjectId;
 
+  @Prop([{ required: true, type: mongoose.Schema.Types.String }])
+  selectedCards: string[];
+
   @Prop({ required: true, type: mongoose.Schema.Types.Number })
   points: number;
 

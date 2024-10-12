@@ -26,7 +26,6 @@ import { RewardingEventType, RewardsConsumerName, RewardsEventCategory } from '@
 import { AuthModule } from '@auth';
 import { UserModule } from '@user';
 import { CoreModule } from '@core';
-import { CardModule } from '@card';
 import { SqsModule } from '@sqs';
 import { SnsModule } from '@sns';
 import { EventsModule } from '@events';
@@ -40,6 +39,7 @@ import { LockModule } from '@lock';
 import { RedisLockModule } from '@redis-lock';
 import { ConsumersModule } from '@consumers';
 import { SqsConsumersModule } from '@sqs-consumers';
+import { ProjectsModule } from '@projects';
 
 @Module({
   imports: [
@@ -196,10 +196,10 @@ import { SqsConsumersModule } from '@sqs-consumers';
     CoreModule,
     AuthModule,
     UserModule,
-    CardModule,
     QuestsModule,
     QuestsProcessingModule,
     ConsumersModule,
+    ProjectsModule,
   ],
 })
 export class AppModule {

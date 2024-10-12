@@ -79,6 +79,7 @@ export default class TournamentController {
     await this.tournamentParticipationService.create({
       tournamentId,
       userId: session.get('userId'),
+      selectedCards: [],
       walletAddress: body.walletAddress,
     });
 

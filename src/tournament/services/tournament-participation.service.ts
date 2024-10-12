@@ -12,14 +12,9 @@ import { TournamentParticipationsEventType, TournamentsEventCategory } from '@to
 import { TournamentParticipationCreatedEventData } from '@tournament/types';
 
 export interface CreateTournamentParticipationParams {
-  tournamentId: string;
-  userId: string;
-  walletAddress?: string;
-}
-
-export interface CreateTournamentParticipationParams {
   userId: string;
   tournamentId: string;
+  selectedCards: string[];
   walletAddress?: string;
 }
 
@@ -77,12 +72,14 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
       if (!tournament.getIsTonConnected()) {
         await this.userService.withdrawCoins(params.userId, tournament.getEntryPrice());
       }
+
       await this.tournamentService.addParticipant(params.tournamentId);
 
       const tournamentParticipation = await this.tournamentParticipationRepository.create({
         tournament: params.tournamentId,
         user: params.userId,
         points: 0,
+        selectedCards: params.selectedCards,
         walletAddress: params.walletAddress,
       });
 
@@ -95,6 +92,7 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
             id: tournamentParticipation.getId(),
             tournamentId: tournamentParticipation.getTournamentId(),
             userId: tournamentParticipation.getUserId(),
+            selectedCards: tournamentParticipation.getSelectedCards(),
             points: tournamentParticipation.getPoints(),
           },
         },

@@ -18,6 +18,7 @@ export default class TournamentParticipationController {
     await this.tournamentParticipationService.create({
       userId: session.get('userId'),
       tournamentId: body.tournamentId,
+      selectedCards: body.selectedCards,
     });
 
     return { success: true };
