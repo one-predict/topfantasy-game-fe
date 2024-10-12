@@ -1,0 +1,13 @@
+.cardsPreviewContainer {
+    display: flex;
+
+    justify-content: space-between;
+
+    max-width: 160px;
+
+    img {
+        width: 48px;
+        height: 48px;
+        border-radius: 4px;
+    } 
+}

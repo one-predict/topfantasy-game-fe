@@ -16,17 +16,7 @@ interface PageLayoutProps {
 const DEFAULT_BACKGROUND_IMAGE = '/images/background.png';
 
 const PageLayout = ({ children, background }: PageLayoutProps) => {
-  return (
-    <div
-      style={{
-        backgroundImage: `url(${background?.image || DEFAULT_BACKGROUND_IMAGE})`,
-        backgroundPosition: background?.position || 'center',
-      }}
-      className={clsx(styles.pageLayout, background?.overlay && styles.pageLayoutWithOverlay)}
-    >
-      {children}
-    </div>
-  );
+  return <div className={clsx(styles.pageLayout, background?.overlay && styles.pageLayoutWithOverlay)}>{children}</div>;
 };
 
 export default PageLayout;

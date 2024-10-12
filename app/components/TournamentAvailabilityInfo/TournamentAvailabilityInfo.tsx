@@ -17,6 +17,14 @@ const TournamentAvailabilityInfo = ({ className, tournament }: TournamentAvailab
     return null;
   }
 
+  const statusTitle = (status: string) => {
+    return {
+      upcoming: 'Open ⏱︎',
+      live: 'live',
+      finished: 'finished',
+    }[status];
+  };
+
   const statusBadgeClassName = clsx({
     [styles.upcomingStatusBadge]: tournamentStatus === 'upcoming',
     [styles.liveStatusBadge]: tournamentStatus === 'live',
@@ -25,22 +33,23 @@ const TournamentAvailabilityInfo = ({ className, tournament }: TournamentAvailab
 
   return (
     <div className={clsx(styles.tournamentAvailabilityInfo, className)}>
-      <div className={statusBadgeClassName}>{tournamentStatus}</div>
+
       {tournamentStatus !== 'finished' && (
         <TimeRemaining
           unixTimestamp={tournamentStatus === 'upcoming' ? tournament.startTimestamp : tournament.endTimestamp}
         >
           {({ remainingDays, remainingHours, remainingMinutes }) => {
             return (
-              <Typography variant="h6">
+              <Typography color='black' variant="h5" className={styles.remainingTime}>
                 {tournamentStatus === 'upcoming'
-                  ? `Starts in ${remainingDays}d ${remainingHours}h ${remainingMinutes}m`
-                  : `Ends in ${remainingDays}d ${remainingHours}h ${remainingMinutes}m`}
+                  ? `⏱︎ ${remainingDays}d ${remainingHours}h ${remainingMinutes}m`
+                  : `⏱︎ ${remainingDays}d ${remainingHours}h ${remainingMinutes}m`}
               </Typography>
             );
           }}
         </TimeRemaining>
       )}
+            <div className={statusBadgeClassName}>{statusTitle(tournamentStatus)}</div>
     </div>
   );
 };

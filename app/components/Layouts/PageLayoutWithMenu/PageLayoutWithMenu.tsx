@@ -12,7 +12,6 @@ interface PageLayoutWithMenuProps {
 const PageLayoutWithMenu = ({ children, background }: PageLayoutWithMenuProps) => {
   return (
     <PageLayout background={background}>
-      <PageHead />
       <div className={styles.innerContainer}>{children}</div>
       <MenuTabBar className={styles.menuTableBar} />
     </PageLayout>

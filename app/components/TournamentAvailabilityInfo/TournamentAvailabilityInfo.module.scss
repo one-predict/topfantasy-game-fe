@@ -10,18 +10,45 @@
   align-items: center;
   justify-content: center;
   background-color: #190A31;
-  padding: 0 18.5px;
-  border-radius: 12px;
+  width: 86px;
+  height: 49px;
+  border-radius: 0px 12px 0px 12px;
   font-size: 0.625rem;
   font-weight: 400;
-  color: #FFFFFF;
+  position: relative;
+  color: black;
   text-transform: capitalize;
+  z-index: 1;
+
+  &::after {
+    content: '';
+    background: linear-gradient(90deg, #E6B980 0%, #EACDA3 100%);
+    border-bottom : 10px solid #EACDA3;
+    border-right  : 0px solid transparent;
+    border-left   : 10px solid transparent;
+    position : absolute;
+    bottom: 0%;
+    right: 0%;
+    z-index: 122;
+  }
+
+  &::before {
+    content: '';
+    background: linear-gradient(90deg, #F3E7E9 0%, #E3EEFF 99%, #E3EEFF 100%);
+    border-bottom : 17px solid #E3EEFF;
+    border-right  : 0px solid transparent;
+    border-left   : 17px solid transparent;
+    position : absolute;
+    bottom: 0%;
+    right: 0%;
+    z-index: 122;
+  }
 }
 
 .upcomingStatusBadge {
   @extend .statusBadge;
 
-  background-color: #FFB800;
+  background: linear-gradient(90deg, rgba(230, 185, 128, 0.5) 0%, rgba(234, 205, 163, 0.5) 100%);
 }
 
 .liveStatusBadge {
@@ -34,4 +61,8 @@
   @extend .statusBadge;
 
   background-color: #8C8498;
+}
+
+.remainingTime {
+  padding-top: 10px;
 }

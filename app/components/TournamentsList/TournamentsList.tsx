@@ -10,6 +10,22 @@ export interface TournamentsListProps {
   onViewTournamentDetailsClick: (tournament: Tournament) => void;
 }
 
+/*
+    {
+      id: '',
+      title: 'By Telegram',
+      description: 'test description',
+      entryPrice: 1,
+      staticPrizePool: 1,
+      participantsCount: 1,
+      imageUrl: '/images/telegram.png',
+      startTimestamp: 1000000,
+      endTimestamp: 1000000,
+      roundDurationInSeconds: 1,
+      pool: ['not', 'blum', 'doge'],
+    },
+*/
+
 const TournamentsList = ({ className, tournaments, onViewTournamentDetailsClick }: TournamentsListProps) => {
   if (!tournaments.length) {
     return (

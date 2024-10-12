@@ -18,6 +18,7 @@ export interface Tournament {
   roundDurationInSeconds: number;
   imageUrl?: string;
   isTonConnected?: boolean;
+  cardsPool: Array<string>;
 }
 
 export interface TournamentParticipant {

@@ -15,20 +15,20 @@ export interface ButtonsToggleProps {
 }
 
 const ButtonsToggle = ({ toggles, onSwitch, selectedId, className }: ButtonsToggleProps) => {
-  return (
-    <div className={clsx(styles.buttonsToggle, className)}>
-      {toggles.map((item) => (
-        <div
-          className={clsx(styles.toggleButton, {
-            [styles.selectedToggleButton]: selectedId === item.id,
-          })}
-          onClick={() => onSwitch(item.id)}
-          key={item.id}
-        >
-          <Typography variant="subtitle1">{item.title}</Typography>
-        </div>
-      ))}
-    </div>
+  return (<></>
+    // <div className={clsx(styles.buttonsToggle, className)}>
+    //   {toggles.map((item) => (
+    //     <div
+    //       className={clsx(styles.toggleButton, {
+    //         [styles.selectedToggleButton]: selectedId === item.id,
+    //       })}
+    //       onClick={() => onSwitch(item.id)}
+    //       key={item.id}
+    //     >
+    //       <Typography variant="subtitle1">{item.title}</Typography>
+    //     </div>
+    //   ))}
+    // </div>
   );
 };
 

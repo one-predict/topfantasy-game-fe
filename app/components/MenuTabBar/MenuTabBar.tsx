@@ -3,8 +3,9 @@ import { useNavigate, useMatches } from '@remix-run/react';
 import clsx from 'clsx';
 import AppSection from '@enums/AppSection';
 import Typography from '@components/Typography';
-import HomeIcon from '@assets/icons/home.svg?react';
-import ShoppingBagIcon from '@assets/icons/shopping-bag.svg?react';
+import NotificationsIcon from '@assets/icons/notifications.svg?react';
+import LeaderBoardIcon from '@assets/icons/leaderboard.svg?react';
+import ProfileIcon from '@assets/icons/profle.svg?react';
 import DiamondIcon from '@assets/icons/diamong.svg?react';
 import CupIcon from '@assets/icons/cup.svg?react';
 import styles from './MenuTabBar.module.scss';
@@ -22,28 +23,28 @@ export interface MenuTabProps {
 
 const sections: MenuSection[] = [
   {
-    title: 'Home',
-    icon: <HomeIcon />,
-    link: '/',
-    section: AppSection.Home,
-  },
-  {
-    title: 'Store',
-    icon: <ShoppingBagIcon />,
-    link: '/store',
-    section: AppSection.Store,
-  },
-  {
-    title: 'Rewards',
-    icon: <DiamondIcon />,
-    link: '/rewards',
-    section: AppSection.Rewards,
-  },
-  {
     title: 'Tournaments',
     icon: <CupIcon />,
     link: '/tournaments',
     section: AppSection.Tournaments,
+  },
+  {
+    title: 'Leaderboard',
+    icon: <LeaderBoardIcon />,
+    link: '/',
+    section: AppSection.Home,
+  },
+  {
+    title: 'Notifications',
+    icon: <NotificationsIcon />,
+    link: '/store',
+    section: AppSection.Store,
+  },
+  {
+    title: 'Profile',
+    icon: <ProfileIcon />,
+    link: '/rewards',
+    section: AppSection.Rewards,
   },
 ];
 
