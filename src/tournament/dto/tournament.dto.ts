@@ -1,4 +1,4 @@
-import {IsArray, IsIn, IsOptional, IsString} from 'class-validator';
+import { IsArray, IsIn, IsOptional, IsString } from 'class-validator';
 import { TournamentStatus } from '@tournament/enums';
 
 export class ListLatestTournamentsDto {

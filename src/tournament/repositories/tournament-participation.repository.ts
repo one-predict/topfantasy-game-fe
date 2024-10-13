@@ -141,7 +141,11 @@ export class MongodbTournamentParticipationRepository implements TournamentParti
         Match(
           Or([
             { tournament: new ObjectId(tournamentId), fantasyPoints: Gt(participation.fantasyPoints) },
-            { tournament: new ObjectId(tournamentId), fantasyPoints: participation.fantasyPoints, _id: Gt(participation._id) },
+            {
+              tournament: new ObjectId(tournamentId),
+              fantasyPoints: participation.fantasyPoints,
+              _id: Gt(participation._id),
+            },
           ]),
         ),
         { $sort: { points: -1, _id: 1 } },

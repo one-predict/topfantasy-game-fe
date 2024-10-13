@@ -1,7 +1,7 @@
 import { FlattenMaps } from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { Tournament } from '@tournament/schemas';
-import { TournamentPaymentCurrency } from "@tournament/enums";
+import { TournamentPaymentCurrency } from '@tournament/enums';
 
 export interface TournamentEntity {
   getId(): string;

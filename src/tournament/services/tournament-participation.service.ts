@@ -1,17 +1,17 @@
-import {Injectable, UnprocessableEntityException} from '@nestjs/common';
-import {InjectUserService, UserService} from '@user';
-import {InjectTransactionsManager, TransactionsManager} from '@core';
-import { getCurrentUnixTimestamp } from "@common/utils";
-import {EventsService} from '@events/services';
-import {InjectEventsService} from '@events/decorators';
-import {InjectTournamentParticipationRepository, InjectTournamentService} from '@tournament/decorators';
-import {TournamentLeaderboard, TournamentParticipationRepository} from '@tournament/repositories';
-import {TournamentService} from '@tournament/services';
-import {TournamentParticipationEntity} from '@tournament/entities';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { InjectUserService, UserService } from '@user';
+import { InjectTransactionsManager, TransactionsManager } from '@core';
+import { getCurrentUnixTimestamp } from '@common/utils';
+import { EventsService } from '@events/services';
+import { InjectEventsService } from '@events/decorators';
+import { InjectTournamentParticipationRepository, InjectTournamentService } from '@tournament/decorators';
+import { TournamentLeaderboard, TournamentParticipationRepository } from '@tournament/repositories';
+import { TournamentService } from '@tournament/services';
+import { TournamentParticipationEntity } from '@tournament/entities';
 import {
   TournamentParticipationsEventType,
   TournamentPaymentCurrency,
-  TournamentsEventCategory
+  TournamentsEventCategory,
 } from '@tournament/enums';
 import { TournamentParticipationCreatedEventData } from '@tournament/types';
 

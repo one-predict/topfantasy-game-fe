@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import TournamentPaymentCurrency from "@tournament/enums/tournament-payment-currency.enum";
+import TournamentPaymentCurrency from '@tournament/enums/tournament-payment-currency.enum';
 
 @Schema()
 export class Tournament {

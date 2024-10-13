@@ -40,7 +40,7 @@ import { RedisLockModule } from '@redis-lock';
 import { ConsumersModule } from '@consumers';
 import { SqsConsumersModule } from '@sqs-consumers';
 import { ProjectsModule } from '@projects';
-import {TournamentModule} from "@tournament";
+import { TournamentModule } from '@tournament';
 
 @Module({
   imports: [
