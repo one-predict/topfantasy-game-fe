@@ -8,7 +8,7 @@ export interface CardsShortPreviewProps {
   maxProjectsToDisplay?: number;
 }
 
-const DEFAULT_MAX_PROJECTS_TO_DISPLAY = 5;
+const DEFAULT_MAX_PROJECTS_TO_DISPLAY = 4;
 
 const CardsShortPreview = ({
   projects,

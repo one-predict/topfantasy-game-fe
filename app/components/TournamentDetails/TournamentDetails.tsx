@@ -33,16 +33,16 @@ const TournamentDetails = ({
       />
       <div className={styles.sections}>
         {participationSelectedProjects ? (
-          <FantasyCardsGrid projects={participationSelectedProjects || []} />
+          <FantasyCardsGrid
+            projects={participationSelectedProjects || []}
+            projectsFantasyPoints={tournamentParticipation?.projectsFantasyPoints}
+          />
         ) : (
           <Loader size="small" centered />
         )}
         {tournamentLeaderboard ? (
           <TournamentLeaderboardComponent
-            rankedParticipants={tournamentLeaderboard.rankedParticipants
-              .concat(tournamentLeaderboard.rankedParticipants)
-              .concat(tournamentLeaderboard.rankedParticipants)
-              .concat(tournamentLeaderboard.rankedParticipants)}
+            rankedParticipants={tournamentLeaderboard.rankedParticipants}
           />
         ) : (
           <Loader size="small" centered />

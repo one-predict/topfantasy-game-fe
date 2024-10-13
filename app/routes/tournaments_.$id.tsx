@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useParams } from '@remix-run/react';
+import {useNavigate, useParams} from '@remix-run/react';
 import AppSection from '@enums/AppSection';
 import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
@@ -10,6 +10,7 @@ import useTournamentStatus from '@hooks/useTournamentStatus';
 import useSession from '@hooks/useSession';
 import useJoinTournamentMutation from '@hooks/mutations/useJoinTournamentMutation';
 import useTournamentLeaderboardQuery from '@hooks/queries/useTournamentLeaderboardQuery';
+import useBackButton from "@hooks/useBackButton";
 import PageBody from '@components/PageBody';
 import Typography from '@components/Typography';
 import TournamentFantasyCardsPicker from '@components/TournamentFantasyCardsPicker';
@@ -27,10 +28,15 @@ const VITE_TON_TOURNAMENT_ADDRESS = import.meta.env.VITE_TON_TOURNAMENT_ADDRESS;
 const TournamentPage = () => {
   const { id: tournamentId } = useParams<{ id: string }>();
 
+  const navigate = useNavigate();
   const wallet = useTonWallet();
   const [tonConnectUI] = useTonConnectUI();
 
   const currentUser = useSession();
+
+  useBackButton(true, () => {
+    navigate('/tournaments');
+  }, []);
 
   const { data: tournament } = useTournamentByIdQuery(tournamentId || '');
   const { data: tournamentParticipation } = useTournamentParticipationQuery(tournament?.id || '');

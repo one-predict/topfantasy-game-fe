@@ -8,6 +8,10 @@
   background: linear-gradient(90deg, #E6B980 0%, #EACDA3 100%);
 }
 
+.fantasyCardImage {
+  max-height: 115px;
+}
+
 .notAvailableFantasyCard .fantasyCardImage {
   opacity: 0.2;
 }

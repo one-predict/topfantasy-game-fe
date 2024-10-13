@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useMiniApp, initSwipeBehavior } from '@telegram-apps/sdk-react';
 
 const EXPAND_WEB_APP_EVENT = 'web_app_expand';
-const BACKGROUND_COLOR = '#190A31';
-const HEADER_COLOR = '#190A31';
+const BACKGROUND_COLOR = '#000000';
+const HEADER_COLOR = '#000000';
 
 const TelegramInit = () => {
   const miniApp = useMiniApp(true);

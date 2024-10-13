@@ -41,6 +41,7 @@ export interface TournamentParticipation {
   tournamentId: string;
   fantasyPoints: number;
   selectedProjectIds: string[];
+  projectsFantasyPoints?: Record<string, number>;
 }
 
 export interface TournamentLeaderboard {

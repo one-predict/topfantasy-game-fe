@@ -100,7 +100,7 @@ const App = () => {
       <SDKProvider debug>
         <TelegramInit />
         <TonConnectUIProvider
-          manifestUrl="https://s3.eu-central-1.amazonaws.com/game.aipick.io/tonconnect-manifest.json"
+          manifestUrl="https://tonfantasy.s3.eu-central-1.amazonaws.com/tonconnect-manifest.json"
           uiPreferences={{ theme: THEME.DARK }}
         >
           <QueryClientProvider client={queryClient}>
