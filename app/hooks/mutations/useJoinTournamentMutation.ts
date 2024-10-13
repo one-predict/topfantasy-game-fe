@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { DefaultError, useMutation, useQueryClient } from '@tanstack/react-query';
-import { JoinTournamentParams } from "@api/TournamentApi";
+import { JoinTournamentParams } from '@api/TournamentApi';
 import { useTournamentApi } from '@providers/ApiProvider';
 
 const useJoinTournamentMutation = () => {

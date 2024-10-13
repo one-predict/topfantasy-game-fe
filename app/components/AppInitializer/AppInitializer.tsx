@@ -1,18 +1,12 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import { mockTelegramEnv, parseInitData } from '@telegram-apps/sdk';
 import { useLaunchParams } from '@telegram-apps/sdk-react';
 import useCurrentUserQuery from '@hooks/queries/useCurrentUserQuery';
 import useSignInMutation from '@hooks/mutations/useSignInMutation';
 import useAsyncEffect from '@hooks/useAsyncEffect';
-import useDelayedState from '@hooks/useDelayedState';
-import useResourcesLoadingProgress from '@hooks/useResourcesLoadingProgress';
-import useAckRewardsNotificationMutation from '@hooks/mutations/useAckRewardsNotificationMutation';
 import useMyRewardsNotificationsQuery from '@hooks/queries/useMyRewardsNotificationsQuery';
 import { SessionProvider } from '@providers/SessionProvider';
 import LoadingScreen from '@components/LoadingScreen';
-import OnboardingScreen from '@components/OnboardingScreen';
-import RewardsNotification from '@components/RewardsNotification';
-import FixedSlideView from '@components/FixedSlideView';
 
 export interface AppInitializerProps {
   children: ReactNode;
@@ -49,12 +43,9 @@ if (typeof window !== 'undefined' && import.meta.env.MODE === 'development') {
   });
 }
 
-const RESET_LOADING_DELAY = 1000;
-
 const AppInitializer = ({ children }: AppInitializerProps) => {
   const { data: currentUser } = useCurrentUserQuery();
   const { mutateAsync: signIn } = useSignInMutation();
-  const { mutateAsync: acknowledgeRewardsNotification } = useAckRewardsNotificationMutation();
 
   const { data: myRewardsNotifications } = useMyRewardsNotificationsQuery({
     enabled: !!currentUser,
@@ -71,35 +62,15 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
     }
   }, [launchParams, currentUser]);
 
-  const [notification] = myRewardsNotifications || [];
-
   const renderApplication = () => {
     if (!currentUser || !myRewardsNotifications) {
       return <LoadingScreen />;
     }
 
-    if (!currentUser.onboarded) {
-      return <OnboardingScreen />;
-    }
-
     return <>{children}</>;
   };
 
-  const isNotificationFixedSlideVisible = !!currentUser?.onboarded && !!notification;
-
-  return (
-    <SessionProvider currentUser={currentUser}>
-      {renderApplication()}
-      <FixedSlideView fullScreen visible={isNotificationFixedSlideVisible}>
-        {notification && (
-          <RewardsNotification
-            onAcknowledge={() => acknowledgeRewardsNotification(notification.id)}
-            notification={notification}
-          />
-        )}
-      </FixedSlideView>
-    </SessionProvider>
-  );
+  return <SessionProvider currentUser={currentUser}>{renderApplication()}</SessionProvider>;
 };
 
 export default AppInitializer;

@@ -24,10 +24,7 @@ const TournamentsPage = () => {
     <PageBody>
       <div className={styles.tournamentsPageTitle}>Tournament</div>
       {tournaments ? (
-        <TournamentsList
-          tournaments={tournaments}
-          onPlayTournamentClick={handlePlayTournamentClick}
-        />
+        <TournamentsList tournaments={tournaments} onPlayTournamentClick={handlePlayTournamentClick} />
       ) : (
         <Loader centered />
       )}

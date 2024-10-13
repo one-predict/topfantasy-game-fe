@@ -30,10 +30,7 @@ const TournamentLeaderboard = ({ rankedParticipants }: TournamentLeaderboardProp
       </Typography>
       {rankedParticipants.length ? (
         <>
-          <TournamentWinners
-            className={styles.tournamentWinners}
-            winners={winners}
-          />
+          <TournamentWinners className={styles.tournamentWinners} winners={winners} />
           <TournamentParticipantsTable
             startsFrom={WINNERS_COUNT}
             className={styles.participantsTable}
@@ -41,7 +38,7 @@ const TournamentLeaderboard = ({ rankedParticipants }: TournamentLeaderboardProp
           />
         </>
       ) : (
-        <Typography className={styles.noParticipantsText} alignment="center" color="gray" variant="h4">
+        <Typography className={styles.noParticipantsText} alignment="center" color="secondary" variant="h4">
           No participants yet!
         </Typography>
       )}

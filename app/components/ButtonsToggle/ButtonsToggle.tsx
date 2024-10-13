@@ -1,7 +1,3 @@
-import clsx from 'clsx';
-import Typography from '@components/Typography';
-import styles from './ButtonsToggle.module.scss';
-
 interface ToggleItem {
   id: string;
   title: string;
@@ -15,7 +11,8 @@ export interface ButtonsToggleProps {
 }
 
 const ButtonsToggle = ({ toggles, onSwitch, selectedId, className }: ButtonsToggleProps) => {
-  return (<></>
+  return (
+    <></>
     // <div className={clsx(styles.buttonsToggle, className)}>
     //   {toggles.map((item) => (
     //     <div

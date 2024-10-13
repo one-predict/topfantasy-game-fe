@@ -6,13 +6,11 @@
   margin-bottom: 16px;
 }
 
-.tournamentDetailsSections {
+.sections {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
   padding-top: 16px;
   overflow: auto;
   height: 100%;
-}
-
-.sectionLoader {
-  width: 64px;
-  height: 64px;
 }

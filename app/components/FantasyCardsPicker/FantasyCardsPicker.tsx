@@ -1,10 +1,10 @@
-import { useCallback, useMemo } from "react";
-import { FantasyProject } from "@api/FantasyProjectApi";
-import useKeyBy from "@hooks/useKeyBy";
-import useSumBy from "@hooks/useSumBy";
-import FantasyCardsGrid from "@components/FantasyCardsGrid";
-import Typography from "@components/Typography";
-import Button from "@components/Button";
+import { ReactNode, useCallback, useMemo } from 'react';
+import { FantasyProject } from '@api/FantasyProjectApi';
+import useKeyBy from '@hooks/useKeyBy';
+import useSumBy from '@hooks/useSumBy';
+import FantasyCardsGrid from '@components/FantasyCardsGrid';
+import Typography from '@components/Typography';
+import Button from '@components/Button';
 import styles from './FantasyCardsPicker.module.scss';
 
 export interface FantasyCardsPickerProps {
@@ -16,6 +16,7 @@ export interface FantasyCardsPickerProps {
   onCardDeselect?: (project: FantasyProject) => void;
   onConfirmClick?: () => void;
   isLoading?: boolean;
+  renderAction?: () => ReactNode;
 }
 
 const FantasyCardsPicker = ({
@@ -27,6 +28,7 @@ const FantasyCardsPicker = ({
   onCardDeselect,
   onConfirmClick,
   isLoading,
+  renderAction,
 }: FantasyCardsPickerProps) => {
   const availableProjectsPool = useKeyBy(availableProjects, 'id');
 
@@ -39,19 +41,23 @@ const FantasyCardsPicker = ({
   const selectedProjectsCount = selectedProjects.length;
   const availableStars = Math.max(0, maxStars - selectedProjectsStars);
 
-  const checkCardSelected = useCallback((project: FantasyProject) => {
-    return !!selectedProjectsPool[project.id];
-  }, [selectedProjectsPool]);
+  const checkCardSelected = useCallback(
+    (project: FantasyProject) => {
+      return !!selectedProjectsPool[project.id];
+    },
+    [selectedProjectsPool],
+  );
 
-  const checkCardUnavailable = useCallback((project: FantasyProject) => {
-    return selectedProjectsCount >= maxSelectedCards || availableStars < project.stars;
-  }, [availableStars, maxSelectedCards, selectedProjectsCount]);
+  const checkCardUnavailable = useCallback(
+    (project: FantasyProject) => {
+      return selectedProjectsCount >= maxSelectedCards || availableStars < project.stars;
+    },
+    [availableStars, maxSelectedCards, selectedProjectsCount],
+  );
 
   return (
     <div className={styles.fantasyCardsPickerContainer}>
-      <Typography variant="subtitle2">
-        Select max {maxSelectedCards} cards you want to add to your portfolio
-      </Typography>
+      <Typography variant="subtitle2">Select max {maxSelectedCards} cards you want to add to your portfolio</Typography>
       <FantasyCardsGrid
         projects={availableProjects}
         onCardSelect={onCardSelect}
@@ -60,9 +66,15 @@ const FantasyCardsPicker = ({
         isCardUnavailable={checkCardUnavailable}
       />
       {(maxSelectedCards === selectedProjectIds.length || availableStars === 0) && (
-        <Button loading={isLoading} onClick={onConfirmClick} className={styles.confirmButton}>
-          Confirm
-        </Button>
+        <>
+          {renderAction ? (
+            renderAction()
+          ) : (
+            <Button loading={isLoading} onClick={onConfirmClick} className={styles.confirmButton}>
+              Confirm
+            </Button>
+          )}
+        </>
       )}
     </div>
   );

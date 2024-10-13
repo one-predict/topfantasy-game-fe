@@ -9,6 +9,7 @@
   width: 64px;
   height: 64px;
   margin-bottom: 8px;
+  margin-top: auto;
 }
 
 .reward {
@@ -16,18 +17,14 @@
   padding: 4px 15.5px;
   background: linear-gradient(90deg, #E6B980 0%, #EACDA3 100%);
   margin-top: 4px;
+  z-index: 2;
 }
 
-.rewardNumber {
-  padding-top: 4px;
+.firstPlaceReward {
+  margin-bottom: 24px;
 }
 
-.tokenImg {
-  width: 30px;
-  height: 30px;
-}
-
-.zeroCircle {
+.podium {
   position: relative;
   display: flex;
   justify-content: center;
@@ -35,14 +32,22 @@
   width: 114px;
   height: 78px;
   background: linear-gradient(218.74deg, rgba(247, 214, 163, 0.4) 0%, rgba(51, 31, 0, 0.4) 77.74%);
+  margin-top: auto;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: -24px;
-    width: 114px;
-    height: 24px;
-    background: linear-gradient(263.3deg, rgba(247, 214, 163, 0.4) 10.51%, rgba(51, 31, 0, 0.4) 79.42%);
-    transform: rotateX(45deg) rotateZ(45deg);
+    top: -25px; /* Позиция над передней гранью */
+    left: 0;
+    width: 100%; /* Ширина верхней грани равна передней */
+    height: 25px;
+    background: linear-gradient(180deg, rgba(51, 31, 0, 0.4) 0%, rgba(247, 214, 163, 0.4) 100%);
+    transform: perspective(100px) rotateX(30deg); /* Наклон вперёд с перспективой */
+    transform-origin: bottom; /* Основание наклона */
+    border-radius: 5px 5px 0 0; /* Сглаживание верхних углов */
   }
+}
+
+.firstPlacePodium {
+  height: 102px;
 }

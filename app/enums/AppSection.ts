@@ -1,6 +1,6 @@
 enum AppSection {
   Home = 'home',
-  Store = 'store',
+  Leaderboard = 'Leaderboard',
   Rewards = 'rewards',
   Tournaments = 'tournaments',
 }

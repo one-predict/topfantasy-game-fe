@@ -7,15 +7,12 @@
   overflow: hidden;
   width: 100%;
   padding: 46px 24px 16px 10px;
-  background-color: #ffffff;
   border-radius: 12px;
 
-  gap: 0px;
-  border-radius: 12px 12px 12px 12px;
-  opacity: 0px;
+  gap: 0;
   clip-path: polygon(0% 14%, 12% 0, 100% 0%, 100% 85%, 92% 100%, 0% 100%, 0% 79%, 7% 70%, 7% 37%, 0% 28%);
   background: linear-gradient(90deg, #F3E7E9 0%, #E3EEFF 99%, #E3EEFF 100%);
-  z-index: -1;
+
   & * {
     z-index: 1;
   }
@@ -27,15 +24,19 @@
   padding-bottom: 20px;
 }
 
+.playButton {
+  width: 120px;
+}
+
 .tournamentCardBackground {
   position: absolute;
-  top: 0%; 
-  left: 0%;
+  top: 0;
+  left: 0;
 }
 
 .tournamentAvailabilityInfo {
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 46px;
   right: 36px;
 }
@@ -70,22 +71,9 @@
 
 .tournamentTicketFragment {
   position: absolute;
-  z-index: 999;
   top: 31%;
   left: -3%;
   z-index: 9999;
-}
-
-.tournamentImageShadow {
-  // position: absolute;
-  // top: 74px;
-  // right: 46px;
-  // width: 72px;
-  // height: 72px;
-  // z-index: 0;
-  // // background: rgba(0, 0, 0, 0.25);
-  // border-radius: 50%;
-  // // box-shadow: 0 0 100px 50px #3a1f66;
 }
 
 .viewDetailsButton {

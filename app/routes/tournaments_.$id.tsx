@@ -1,27 +1,34 @@
 import { useCallback } from 'react';
-import { useNavigate, useParams } from '@remix-run/react';
+import { useParams } from '@remix-run/react';
 import AppSection from '@enums/AppSection';
+import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
+import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 import useTournamentByIdQuery from '@hooks/queries/useTournamentByIdQuery';
 import useTournamentParticipationRankQuery from '@hooks/queries/useTournamentParticipationRankQuery';
 import useTournamentParticipationQuery from '@hooks/queries/useTournamentParticipationQuery';
 import useTournamentStatus from '@hooks/useTournamentStatus';
 import useSession from '@hooks/useSession';
 import useJoinTournamentMutation from '@hooks/mutations/useJoinTournamentMutation';
-import useTournamentLeaderboardQuery from "@hooks/queries/useTournamentLeaderboardQuery";
+import useTournamentLeaderboardQuery from '@hooks/queries/useTournamentLeaderboardQuery';
 import PageBody from '@components/PageBody';
 import Typography from '@components/Typography';
-import TournamentFantasyCardsPicker from "@components/TournamentFantasyCardsPicker";
+import TournamentFantasyCardsPicker from '@components/TournamentFantasyCardsPicker';
 import TournamentDetails from '@components/TournamentDetails';
-import Loader from "@components/Loader";
+import Loader from '@components/Loader';
+import { prepareSendTransaction } from '@utils/ton-transactions';
+import styles from './tournament.module.scss';
 
 export const handle = {
   appSection: AppSection.Tournaments,
 };
 
-const TournamentPage = () => {
-  const navigate = useNavigate();
+const VITE_TON_TOURNAMENT_ADDRESS = import.meta.env.VITE_TON_TOURNAMENT_ADDRESS;
 
+const TournamentPage = () => {
   const { id: tournamentId } = useParams<{ id: string }>();
+
+  const wallet = useTonWallet();
+  const [tonConnectUI] = useTonConnectUI();
 
   const currentUser = useSession();
 
@@ -34,29 +41,49 @@ const TournamentPage = () => {
 
   const { mutateAsync: joinTournament, isPending: isJoinTournamentInProgress } = useJoinTournamentMutation();
 
-  const canJoinTournament =
-    tournament?.isTonConnected ||
-    (tournamentStatus === 'upcoming' && !!currentUser && currentUser.coinsBalance > tournament?.entryPrice);
-
   const handleConfirmFantasyProjects = useCallback(
     async (selectedProjectIds: string[]) => {
       if (!tournament) {
         return;
       }
 
-      await joinTournament({ tournamentId: tournament.id, selectedProjectIds });
+      if (tournament.paymentCurrency === TournamentPaymentCurrency.Ton && !wallet?.account.address) {
+        return;
+      }
+
+      if (tournament.paymentCurrency === TournamentPaymentCurrency.Ton) {
+        const response = await tonConnectUI.sendTransaction(
+          prepareSendTransaction(VITE_TON_TOURNAMENT_ADDRESS, tournament.entryPrice),
+        );
+
+        if (!response?.boc) {
+          return;
+        }
+      }
+
+      await joinTournament({
+        tournamentId: tournament.id,
+        selectedProjectIds,
+        walletAddress: wallet?.account.address,
+      });
     },
-    [joinTournament, tournament],
+    [joinTournament, tournament, wallet, tonConnectUI],
   );
 
   const renderPageBodyContent = () => {
     if (!tournament || tournamentParticipation === undefined || !currentUser) {
+      return <Loader size="large" centered />;
+    }
+
+    if (tournamentStatus === 'upcoming') {
       return (
-        <Loader />
+        <Typography className={styles.upcomingTournamentText} color="secondary" variant="h3">
+          This tournament is upcoming!
+        </Typography>
       );
     }
 
-    if (tournamentParticipation === null) {
+    if (tournamentParticipation === null && tournamentStatus === 'registration') {
       return (
         <TournamentFantasyCardsPicker
           tournament={tournament}
@@ -70,7 +97,7 @@ const TournamentPage = () => {
       <TournamentDetails
         tournament={tournament}
         participationUser={currentUser}
-        tournamentParticipationRank={tournamentParticipationRank}
+        tournamentParticipationRank={tournamentParticipationRank ?? null}
         tournamentParticipation={tournamentParticipation}
         tournamentLeaderboard={tournamentLeaderboard}
       />
@@ -79,9 +106,7 @@ const TournamentPage = () => {
 
   return (
     <PageBody>
-      <Typography variant="h2">
-        {tournament?.title}
-      </Typography>
+      {tournament && <Typography variant="h1">{tournament.title}</Typography>}
       {renderPageBodyContent()}
     </PageBody>
   );

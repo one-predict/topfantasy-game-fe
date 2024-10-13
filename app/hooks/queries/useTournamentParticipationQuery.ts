@@ -6,9 +6,11 @@ const useTournamentParticipationQuery = (tournamentId: string) => {
 
   return useQuery({
     queryKey: ['tournament-participations', { tournamentId }],
-    queryFn: tournamentId ? async () => {
-      return tournamentApi.getTournamentParticipation(tournamentId);
-    } : skipToken,
+    queryFn: tournamentId
+      ? async () => {
+          return tournamentApi.getTournamentParticipation(tournamentId);
+        }
+      : skipToken,
   });
 };
 

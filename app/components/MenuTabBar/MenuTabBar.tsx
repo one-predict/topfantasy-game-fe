@@ -3,10 +3,7 @@ import { useNavigate, useMatches } from '@remix-run/react';
 import clsx from 'clsx';
 import AppSection from '@enums/AppSection';
 import Typography from '@components/Typography';
-import NotificationsIcon from '@assets/icons/notifications.svg?react';
 import LeaderBoardIcon from '@assets/icons/leaderboard.svg?react';
-import ProfileIcon from '@assets/icons/profle.svg?react';
-import DiamondIcon from '@assets/icons/diamong.svg?react';
 import CupIcon from '@assets/icons/cup.svg?react';
 import styles from './MenuTabBar.module.scss';
 
@@ -31,8 +28,8 @@ const sections: MenuSection[] = [
   {
     title: 'Leaderboard',
     icon: <LeaderBoardIcon />,
-    link: '/',
-    section: AppSection.Home,
+    link: '/leaderboard',
+    section: AppSection.Leaderboard,
   },
 ];
 

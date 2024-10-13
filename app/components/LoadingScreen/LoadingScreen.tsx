@@ -10,7 +10,9 @@ const LoadingScreen = () => {
         <div className={styles.loaderElement} />
         <div className={styles.loaderElement} />
       </figure>
-      <Typography variant="h1" className={styles.loadingText}>Loading...</Typography>
+      <Typography variant="h1" className={styles.loadingText}>
+        Loading...
+      </Typography>
     </PageLayout>
   );
 };

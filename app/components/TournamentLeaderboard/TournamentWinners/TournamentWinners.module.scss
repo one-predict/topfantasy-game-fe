@@ -1,6 +1,6 @@
 .winnersContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .winner {
@@ -14,9 +14,5 @@
 
   &:nth-child(3) {
     order: 2;
-  }
-
-  &:not(:first-child) {
-    margin-top: 44px;
   }
 }

@@ -1,3 +1,4 @@
+import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
 import { ApiClient } from './ApiClient';
 
 export enum TournamentStatus {
@@ -15,8 +16,9 @@ export interface Tournament {
   participantsCount: number;
   startTimestamp: number;
   endTimestamp: number;
+  registrationEndTimestamp: number;
   imageUrl?: string;
-  isTonConnected?: boolean;
+  paymentCurrency: TournamentPaymentCurrency;
   availableProjectIds: Array<string>;
 }
 

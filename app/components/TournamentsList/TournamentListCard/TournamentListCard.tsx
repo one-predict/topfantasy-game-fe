@@ -1,13 +1,15 @@
 import { Tournament } from '@api/TournamentApi';
+import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
+import useFantasyProjectsByIdsQuery from '@hooks/queries/useFantasyProjectsByIdsQuery';
 import Button from '@components/Button';
 import Typography from '@components/Typography';
 import TournamentAvailabilityInfo from '@components/TournamentAvailabilityInfo';
 import LabeledContent from '@components/LabeledContent';
 import CoinsDisplay from '@components/CoinsDisplay';
+import FantasyPointsDisplay from '@components/FantasyPointsDisplay';
 import TournamentFragmentIcon from '@assets/icons/tournament-ticket-fragment.svg?react';
 import CardsShortPreview from '@app/components/CardsShortPreview/CardsShortPreview';
 import styles from './TournamentListCard.module.scss';
-import useFantasyProjectsByIdsQuery from "@hooks/queries/useFantasyProjectsByIdsQuery";
 
 export interface TournamentListCardProps {
   tournament: Tournament;
@@ -19,6 +21,14 @@ const TournamentListCard = ({ tournament, onPlayTournamentClick }: TournamentLis
 
   const { data: availableProjects } = useFantasyProjectsByIdsQuery(tournament.availableProjectIds);
 
+  const renderCurrency = (amount: number) => {
+    if (tournament.paymentCurrency === TournamentPaymentCurrency.Points) {
+      return <FantasyPointsDisplay color="black" dark points={amount} />;
+    }
+
+    return <CoinsDisplay variant="body2" color="black" coins={prizePool} tokenImageSrc="/images/ton-token.png" />;
+  };
+
   return (
     <div className={styles.tournamentListCardContainer}>
       <div className={styles.tournamentListCard}>
@@ -27,9 +37,7 @@ const TournamentListCard = ({ tournament, onPlayTournamentClick }: TournamentLis
           <Typography variant="h2" color="black">
             {tournament.title}
           </Typography>
-          {availableProjects && (
-            <CardsShortPreview projects={availableProjects} />
-          )}
+          {availableProjects && <CardsShortPreview projects={availableProjects} />}
           <LabeledContent row title="Participants:" color="black">
             <Typography variant="body2" color="black">
               {tournament.participantsCount}
@@ -37,27 +45,14 @@ const TournamentListCard = ({ tournament, onPlayTournamentClick }: TournamentLis
           </LabeledContent>
         </div>
         <img src={tournament.imageUrl} className={styles.tournamentImage} alt={`${tournament.id}-image`} />
-        <div className={styles.tournamentImageShadow} />
         <div className={styles.tournamentPrizeInfo}>
-          <LabeledContent title="Prize Pool">
-            <CoinsDisplay
-              variant="body2"
-              color='black'
-              coins={prizePool}
-              tokenImageSrc={tournament.isTonConnected ? '/images/ton-token.png' : '/images/token.png'}
-            />
-          </LabeledContent>
-          <LabeledContent title="Entry Fee">
-            <CoinsDisplay
-              variant="body2"
-              color='black'
-              coins={tournament.entryPrice}
-              tokenImageSrc={tournament.isTonConnected ? '/images/ton-token.png' : '/images/token.png'}
-            />
-          </LabeledContent>
+          <LabeledContent title="Prize Pool">{renderCurrency(prizePool)}</LabeledContent>
+          <LabeledContent title="Entry Fee">{renderCurrency(tournament.entryPrice)}</LabeledContent>
         </div>
         <div className={styles.playButtonContainer}>
-          <Button onClick={() => onPlayTournamentClick(tournament)}>Play</Button>
+          <Button className={styles.playButton} onClick={() => onPlayTournamentClick(tournament)}>
+            Play
+          </Button>
         </div>
         <div className={styles.tournamentCardBackground} />
       </div>

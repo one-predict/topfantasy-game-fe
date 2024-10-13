@@ -1,29 +1,63 @@
-@keyframes loaderKeyframes {
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
   100% {
-    transform: rotate(1turn);
+    transform: rotate(360deg);
   }
 }
 
 .loader {
-  display: grid;
-  width: 80px;
-  aspect-ratio: 1;
-  animation: loaderKeyframes 4s infinite;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #FFF;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 
-  &::before,
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-bottom: 4px solid #E6B980;
+  border-left: 4px solid transparent;
+}
+
+.smallLoader {
+  width: 24px;
+  height: 24px;
+
   &::after {
-    content: "";
-    grid-area: 1/1;
-    border: 8px solid;
-    border-radius: 50%;
-    border-color: #2CD8D5 #2CD8D5 #6B8DD6 #6B8DD6;
-    mix-blend-mode: darken;
-    animation: loaderKeyframes 1s infinite linear;
+    width: 24px;
+    height: 24px;
   }
+}
+
+.mediumLoader {
+  width: 36px;
+  height: 36px;
 
   &::after {
-    border-color: #6B8DD6 #6B8DD6 #8E37D7 #8E37D7;
-    animation-direction: reverse;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.largeLoader {
+  width: 48px;
+  height: 48px;
+
+  &::after {
+    width: 48px;
+    height: 48px;
   }
 }
 

@@ -38,11 +38,7 @@ const TournamentsList = ({ className, tournaments, onPlayTournamentClick }: Tour
   return (
     <div className={clsx(styles.tournamentsList, className)}>
       {tournaments.map((tournament) => (
-        <TournamentListCard
-          key={tournament.id}
-          tournament={tournament}
-          onPlayTournamentClick={onPlayTournamentClick}
-        />
+        <TournamentListCard key={tournament.id} tournament={tournament} onPlayTournamentClick={onPlayTournamentClick} />
       ))}
     </div>
   );

@@ -1,21 +1,3 @@
-.tournamentParticipationInfoContainer {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-  row-gap: 16px;
-}
-
-.deckConfiguration {
-  overflow: auto;
-  flex-grow: 1;
-}
-
-.portfoliosGame {
-  padding: 16px;
-  flex-grow: 1;
-}
-
-.portfoliosTournamentDescription {
-  padding-top: 32px;
+.upcomingTournamentText {
   margin: auto;
 }

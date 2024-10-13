@@ -1,7 +1,7 @@
-import { FantasyProject } from "@api/FantasyProjectApi";
+import { FantasyProject } from '@api/FantasyProjectApi';
 import styles from './CardsShortPreview.module.scss';
-import {useMemo} from "react";
-import Typography from "@components/Typography";
+import { useMemo } from 'react';
+import Typography from '@components/Typography';
 
 export interface CardsShortPreviewProps {
   projects: FantasyProject[];
@@ -10,10 +10,13 @@ export interface CardsShortPreviewProps {
 
 const DEFAULT_MAX_PROJECTS_TO_DISPLAY = 5;
 
-const CardsShortPreview = ({ projects, maxProjectsToDisplay = DEFAULT_MAX_PROJECTS_TO_DISPLAY }: CardsShortPreviewProps) => {
+const CardsShortPreview = ({
+  projects,
+  maxProjectsToDisplay = DEFAULT_MAX_PROJECTS_TO_DISPLAY,
+}: CardsShortPreviewProps) => {
   const limitedProjects = useMemo(() => {
     return projects.slice(0, maxProjectsToDisplay!);
-  }, [projects]);
+  }, [projects, maxProjectsToDisplay]);
 
   return (
     <div className={styles.cardsPreviewContainer}>
@@ -22,7 +25,9 @@ const CardsShortPreview = ({ projects, maxProjectsToDisplay = DEFAULT_MAX_PROJEC
       })}
       {limitedProjects.length !== projects.length && (
         <div className={styles.moreInfo}>
-          <Typography variant="h3" color="black">+{projects.length - limitedProjects.length}</Typography>
+          <Typography variant="h3" color="black">
+            +{projects.length - limitedProjects.length}
+          </Typography>
         </div>
       )}
     </div>

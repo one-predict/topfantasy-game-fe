@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import clsx from 'clsx';
 import { Tournament } from '@api/TournamentApi';
 import useTournamentStatus from '@hooks/useTournamentStatus';
@@ -10,6 +11,29 @@ export interface TournamentAvailabilityInfoProps {
   tournament: Tournament;
 }
 
+const TOURNAMENT_TIME_PREFIX_MAP = new Map<string, string>([
+  ['upcoming', 'Starts In'],
+  ['registration', 'Entry ends in'],
+  ['live', 'Ends in'],
+]);
+
+const getTimeRemainingUnixTimestamp = (tournament: Tournament, tournamentStatus: string) => {
+  switch (tournamentStatus) {
+    case 'upcoming': {
+      return tournament.startTimestamp;
+    }
+    case 'registration': {
+      return tournament.registrationEndTimestamp;
+    }
+    case 'live': {
+      return tournament.endTimestamp;
+    }
+    default: {
+      return undefined;
+    }
+  }
+};
+
 const TournamentAvailabilityInfo = ({ className, tournament }: TournamentAvailabilityInfoProps) => {
   const tournamentStatus = useTournamentStatus(tournament);
 
@@ -17,39 +41,31 @@ const TournamentAvailabilityInfo = ({ className, tournament }: TournamentAvailab
     return null;
   }
 
-  const statusTitle = (status: string) => {
-    return {
-      upcoming: 'Open ⏱︎',
-      live: 'live',
-      finished: 'finished',
-    }[status];
-  };
-
   const statusBadgeClassName = clsx({
     [styles.upcomingStatusBadge]: tournamentStatus === 'upcoming',
     [styles.liveStatusBadge]: tournamentStatus === 'live',
+    [styles.registrationStatusBadge]: tournamentStatus === 'registration',
     [styles.finishedStatusBadge]: tournamentStatus === 'finished',
   });
 
+  const timeRemainingUnixTimestamp = getTimeRemainingUnixTimestamp(tournament, tournamentStatus);
+
   return (
     <div className={clsx(styles.tournamentAvailabilityInfo, className)}>
-
-      {tournamentStatus !== 'finished' && (
-        <TimeRemaining
-          unixTimestamp={tournamentStatus === 'upcoming' ? tournament.startTimestamp : tournament.endTimestamp}
-        >
+      {timeRemainingUnixTimestamp !== undefined && (
+        <TimeRemaining unixTimestamp={timeRemainingUnixTimestamp}>
           {({ remainingDays, remainingHours, remainingMinutes }) => {
+            const timePrefix = TOURNAMENT_TIME_PREFIX_MAP.get(tournamentStatus);
+
             return (
-              <Typography color='black' variant="h5" className={styles.remainingTime}>
-                {tournamentStatus === 'upcoming'
-                  ? `⏱︎ ${remainingDays}d ${remainingHours}h ${remainingMinutes}m`
-                  : `⏱︎ ${remainingDays}d ${remainingHours}h ${remainingMinutes}m`}
+              <Typography color="black" variant="h5" className={styles.remainingTime}>
+                {timePrefix} {remainingDays}d {remainingHours}h {remainingMinutes}m
               </Typography>
             );
           }}
         </TimeRemaining>
       )}
-            <div className={statusBadgeClassName}>{statusTitle(tournamentStatus)}</div>
+      <div className={statusBadgeClassName}>{_.upperFirst(tournamentStatus)}</div>
     </div>
   );
 };

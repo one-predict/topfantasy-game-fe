@@ -13,7 +13,7 @@
   width: 86px;
   height: 49px;
   border-radius: 0px 12px 0px 12px;
-  font-size: 0.625rem;
+  font-size: 0.85rem;
   font-weight: 400;
   position: relative;
   color: black;
@@ -27,20 +27,20 @@
     border-right  : 0px solid transparent;
     border-left   : 10px solid transparent;
     position : absolute;
-    bottom: 0%;
-    right: 0%;
+    bottom: 0;
+    right: 0;
     z-index: 122;
   }
 
   &::before {
     content: '';
     background: linear-gradient(90deg, #F3E7E9 0%, #E3EEFF 99%, #E3EEFF 100%);
-    border-bottom : 17px solid #E3EEFF;
-    border-right  : 0px solid transparent;
-    border-left   : 17px solid transparent;
-    position : absolute;
-    bottom: 0%;
-    right: 0%;
+    border-bottom: 17px solid #E3EEFF;
+    border-right: 0 solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     z-index: 122;
   }
 }
@@ -54,7 +54,15 @@
 .liveStatusBadge {
   @extend .statusBadge;
 
-  background-color: #10C600;
+  background: linear-gradient(90deg, #0FD850 0%, #F9F047 100%);
+  color: #000000;
+}
+
+.registrationStatusBadge {
+  @extend .statusBadge;
+
+  background: linear-gradient(111.04deg, rgba(255, 223, 0, 1) 0%, rgba(255, 178, 0, 1) 47.26%, rgba(255, 153, 0, 1) 98.45%);
+  color: #000000;
 }
 
 .finishedStatusBadge {

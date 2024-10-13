@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import MenuTabBar from '@components/MenuTabBar';
 import { PageLayout, PageLayoutBackground } from '@components/Layouts';
-import PageHead from '@components/PageHead';
 import styles from './PageLayoutWithMenu.module.scss';
 
 interface PageLayoutWithMenuProps {

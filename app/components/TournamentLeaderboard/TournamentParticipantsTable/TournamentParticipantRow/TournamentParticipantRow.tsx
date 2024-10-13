@@ -1,7 +1,7 @@
 import { TournamentParticipant } from '@api/TournamentApi';
 import { TableBodyCell, TableRow } from '@components/Table';
 import UserAvatar from '@components/UserAvatar';
-import FantasyPointsDisplay from "@components/FantasyPointsDisplay";
+import FantasyPointsDisplay from '@components/FantasyPointsDisplay';
 import CupIcon from '@assets/icons/cup2.svg?react';
 import styles from './TournamentParticipantRow.module.scss';
 
@@ -18,11 +18,7 @@ const TournamentParticipantRow = ({ rowCellWidthConfig, participant, index }: To
     <TableRow cellWidthConfig={rowCellWidthConfig}>
       <TableBodyCell
         overflowedContentClassName={styles.rankCellOverflowedContent}
-        beforeOverflowedContent={(
-          <>
-            {index <= MAX_INDEX_FOR_CUP_ICON && <CupIcon className={styles.cupIcon} />}
-          </>
-        )}
+        beforeOverflowedContent={<>{index <= MAX_INDEX_FOR_CUP_ICON && <CupIcon className={styles.cupIcon} />}</>}
         overflowed
       >
         {index + 1}
