@@ -59,7 +59,9 @@ import { TournamentModule } from '@tournament';
         AWS_ACCESS_KEY_ID: Joi.string().required(),
         AWS_SECRET_ACCESS_KEY: Joi.string().required(),
         SNS_BASE_ARN: Joi.string().required(),
+        SNS_BASE_ARN_PREFIX: Joi.string().optional(),
         SQS_BASE_URL: Joi.string().required(),
+        SQS_BASE_URL_PREFIX: Joi.string().optional(),
         DISABLE_CONSUMERS: Joi.boolean().optional().default(false),
         APPLICATION_MODE: Joi.string().optional().default(ApplicationMode.Default),
       }),
@@ -117,10 +119,11 @@ import { TournamentModule } from '@tournament';
           imports: [ConfigModule],
           useFactory: (configService: ConfigService) => {
             const SNS_BASE_ARN = configService.get('SNS_BASE_ARN');
+            const SNS_BASE_ARN_PREFIX = configService.get('SNS_BASE_ARN_PREFIX') || '';
 
-            const questProcessingTopicArn = `${SNS_BASE_ARN}:quests-processing`;
-            const tournamentsTopicArn = `${SNS_BASE_ARN}:tournaments`;
-            const rewardsTopicArn = `${SNS_BASE_ARN}:rewards`;
+            const questProcessingTopicArn = `${SNS_BASE_ARN}:${SNS_BASE_ARN_PREFIX}quests-processing`;
+            const tournamentsTopicArn = `${SNS_BASE_ARN}:${SNS_BASE_ARN_PREFIX}tournaments`;
+            const rewardsTopicArn = `${SNS_BASE_ARN}:${SNS_BASE_ARN_PREFIX}rewards`;
 
             return {
               [`${QuestsProcessingEventCategory.QuestsProcessing}.${QuestsProcessingEventType.QuestActionDetected}`]: {
@@ -171,23 +174,24 @@ import { TournamentModule } from '@tournament';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         const sqsBaseUrl = configService.getOrThrow('SQS_BASE_URL');
+        const sqsQueueUrlPrefix = configService.get('SQS_BASE_URL_PREFIX') || '';
 
         return [
           {
             name: RewardsConsumerName.RewardingConsumerName,
-            queueUrl: `${sqsBaseUrl}/rewarding`,
+            queueUrl: `${sqsBaseUrl}/${sqsQueueUrlPrefix}rewarding`,
           },
           {
             name: TournamentsConsumerName.TournamentQuestActionsDetection,
-            queueUrl: `${sqsBaseUrl}/tournament-quest-actions-detection`,
+            queueUrl: `${sqsBaseUrl}/${sqsQueueUrlPrefix}tournament-quest-actions-detection`,
           },
           {
             name: QuestProcessingConsumerName.DetectedQuestActionsProcessing,
-            queueUrl: `${sqsBaseUrl}/detected-quest-actions-processing`,
+            queueUrl: `${sqsBaseUrl}/${sqsQueueUrlPrefix}detected-quest-actions-processing`,
           },
           {
             name: QuestProcessingConsumerName.QuestObjectiveProcessing,
-            queueUrl: `${sqsBaseUrl}/quest-objective-processing`,
+            queueUrl: `${sqsBaseUrl}/${sqsQueueUrlPrefix}quest-objective-processing`,
           },
         ];
       },
