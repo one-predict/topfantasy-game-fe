@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
+import TournamentPaymentCurrency from "@tournament/enums/tournament-payment-currency.enum";
 
 @Schema()
 export class Tournament {
@@ -28,10 +29,10 @@ export class Tournament {
   endTimestamp: number;
 
   @Prop({ required: true, type: mongoose.Schema.Types.Number })
-  roundDurationInSeconds: number;
+  registrationEndTimestamp: number;
 
-  @Prop({ required: false, type: mongoose.Schema.Types.Boolean })
-  isTonConnected?: boolean;
+  @Prop({ required: false, default: TournamentPaymentCurrency.Points, type: mongoose.Schema.Types.String })
+  paymentCurrency: TournamentPaymentCurrency;
 
   @Prop({ required: true, type: mongoose.Schema.Types.Array })
   availableProjects: string[];

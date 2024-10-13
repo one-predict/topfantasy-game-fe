@@ -96,8 +96,8 @@ export default class TournamentController {
       participantsCount: tournament.getParticipantsCount(),
       startTimestamp: tournament.getStartTimestamp(),
       endTimestamp: tournament.getEndTimestamp(),
-      roundDurationInSeconds: tournament.getRoundDurationInSeconds(),
-      isTonConnected: tournament.getIsTonConnected(),
+      registrationEndTimestamp: tournament.getRegistrationEndTimestamp(),
+      paymentCurrency: tournament.getPaymentCurrency(),
       availableProjectIds: tournament.getAvailableProjectIds(),
     };
   }

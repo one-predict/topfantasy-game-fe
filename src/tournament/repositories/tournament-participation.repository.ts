@@ -17,7 +17,7 @@ export type FindTournamentParticipationEntitiesQuery = FindEntitiesQuery<{
 export interface CreateTournamentParticipationEntityParams {
   user: string;
   tournament: string;
-  points: number;
+  fantasyPoints: number;
   selectedProjects: string[];
   walletAddress?: string;
 }

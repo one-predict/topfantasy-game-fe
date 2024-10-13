@@ -1,6 +1,7 @@
 import { FlattenMaps } from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { Tournament } from '@tournament/schemas';
+import { TournamentPaymentCurrency } from "@tournament/enums";
 
 export interface TournamentEntity {
   getId(): string;
@@ -11,9 +12,9 @@ export interface TournamentEntity {
   getParticipantsCount(): number;
   getStartTimestamp(): number;
   getEndTimestamp(): number;
-  getRoundDurationInSeconds(): number;
+  getRegistrationEndTimestamp(): number;
   getImageUrl(): string | undefined;
-  getIsTonConnected(): boolean;
+  getPaymentCurrency(): TournamentPaymentCurrency;
   getAvailableProjectIds(): Array<string>;
 }
 
@@ -48,8 +49,8 @@ export class MongoTournamentEntity implements TournamentEntity {
     return this.tournamentDocument.participantsCount;
   }
 
-  public getRoundDurationInSeconds() {
-    return this.tournamentDocument.roundDurationInSeconds;
+  public getRegistrationEndTimestamp() {
+    return this.tournamentDocument.registrationEndTimestamp;
   }
 
   public getStartTimestamp() {
@@ -60,8 +61,8 @@ export class MongoTournamentEntity implements TournamentEntity {
     return this.tournamentDocument.endTimestamp;
   }
 
-  public getIsTonConnected() {
-    return this.tournamentDocument.isTonConnected;
+  public getPaymentCurrency() {
+    return this.tournamentDocument.paymentCurrency;
   }
 
   public getAvailableProjectIds() {

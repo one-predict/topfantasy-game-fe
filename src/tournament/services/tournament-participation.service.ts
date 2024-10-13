@@ -1,14 +1,18 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { getCurrentUnixTimestamp } from '@common/utils';
-import { InjectUserService, UserService } from '@user';
-import { InjectTransactionsManager, TransactionsManager } from '@core';
-import { EventsService } from '@events/services';
-import { InjectEventsService } from '@events/decorators';
-import { InjectTournamentParticipationRepository, InjectTournamentService } from '@tournament/decorators';
-import { TournamentLeaderboard, TournamentParticipationRepository } from '@tournament/repositories';
-import { TournamentService } from '@tournament/services';
-import { TournamentParticipationEntity } from '@tournament/entities';
-import { TournamentParticipationsEventType, TournamentsEventCategory } from '@tournament/enums';
+import {Injectable, UnprocessableEntityException} from '@nestjs/common';
+import {InjectUserService, UserService} from '@user';
+import {InjectTransactionsManager, TransactionsManager} from '@core';
+import { getCurrentUnixTimestamp } from "@common/utils";
+import {EventsService} from '@events/services';
+import {InjectEventsService} from '@events/decorators';
+import {InjectTournamentParticipationRepository, InjectTournamentService} from '@tournament/decorators';
+import {TournamentLeaderboard, TournamentParticipationRepository} from '@tournament/repositories';
+import {TournamentService} from '@tournament/services';
+import {TournamentParticipationEntity} from '@tournament/entities';
+import {
+  TournamentParticipationsEventType,
+  TournamentPaymentCurrency,
+  TournamentsEventCategory
+} from '@tournament/enums';
 import { TournamentParticipationCreatedEventData } from '@tournament/types';
 
 export interface CreateTournamentParticipationParams {
@@ -57,14 +61,22 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
         throw new UnprocessableEntityException(`Provided tournament doesn't exist.`);
       }
 
+      const currentUnixTimestamp = getCurrentUnixTimestamp();
+      const tournamentStartTimestamp = tournament.getStartTimestamp();
+      const registrationEndTimestamp = tournament.getRegistrationEndTimestamp();
+
+      if (currentUnixTimestamp > registrationEndTimestamp || currentUnixTimestamp < tournamentStartTimestamp) {
+        throw new UnprocessableEntityException(`Registration in this tournament is not available.`);
+      }
+
       const existingParticipation = await this.getUserParticipationInTournament(params.userId, params.tournamentId);
 
       if (existingParticipation) {
         throw new UnprocessableEntityException('User already participated in the tournament.');
       }
 
-      if (!tournament.getIsTonConnected()) {
-        //await this.userService.withdrawCoins(params.userId, tournament.getEntryPrice());
+      if (tournament.getPaymentCurrency() === TournamentPaymentCurrency.Points) {
+        await this.userService.withdrawCoins(params.userId, tournament.getEntryPrice());
       }
 
       await this.tournamentService.addParticipant(params.tournamentId);
@@ -72,7 +84,7 @@ export class TournamentParticipationServiceImpl implements TournamentParticipati
       const tournamentParticipation = await this.tournamentParticipationRepository.create({
         tournament: params.tournamentId,
         user: params.userId,
-        points: 0,
+        fantasyPoints: 0,
         selectedProjects: params.selectedProjectIds,
         walletAddress: params.walletAddress,
       });
