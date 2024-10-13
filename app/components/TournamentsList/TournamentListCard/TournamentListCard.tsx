@@ -26,7 +26,7 @@ const TournamentListCard = ({ tournament, onPlayTournamentClick }: TournamentLis
       return <FantasyPointsDisplay color="black" dark points={amount} />;
     }
 
-    return <CoinsDisplay variant="body2" color="black" coins={prizePool} tokenImageSrc="/images/ton-token.png" />;
+    return <CoinsDisplay variant="body2" color="black" coins={amount} tokenImageSrc="/images/ton-token.png" />;
   };
 
   return (
