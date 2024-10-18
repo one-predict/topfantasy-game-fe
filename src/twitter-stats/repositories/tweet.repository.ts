@@ -18,7 +18,7 @@ interface CreateTweetEntityParams {
   favoriteCount?: number;
   retweetCount?: number;
   viewCount?: number;
-  createdAt?: number;
+  createdAt?: Date;
   project?: string;
 }
 
@@ -26,6 +26,7 @@ export interface TweetRepository {
   find(query: FindTweetEntitiesQuery): Promise<TweetEntity[]>;
   findById(id: string | number): Promise<TweetEntity>;
   findByProjectId(project: string | number): Promise<TweetEntity | null>;
+  findByDateRange(projectId: string, sinceDate: Date, untilDate: Date): Promise<TweetEntity[]>;
   create(params: CreateTweetEntityParams): Promise<TweetEntity>;
 }
 
@@ -70,6 +71,24 @@ export class MongoTweetStatRepository implements TweetRepository {
       .exec();
 
     return tweet && new MongoTweetEntity(tweet);
+  }
+
+  public async findByDateRange(projectId: string, sinceDate: Date, untilDate: Date) {
+    const mongodbQueryFilter: FilterQuery<Tweet> = {};
+
+    const tweets = await this.tweetModel
+      .find(mongodbQueryFilter, undefined, {
+        projectId,
+        createdAt: {
+          $gte: sinceDate,
+          $lte: untilDate,
+        },
+      })
+      .session(this.transactionsManager.getSession())
+      .lean()
+      .exec();
+
+    return tweets.map((tweet) => new MongoTweetEntity(tweet));
   }
 
   public async create(params: CreateTweetEntityParams) {

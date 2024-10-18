@@ -13,13 +13,15 @@ import { Tweet } from '@twitter-stats/schemas';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
+const HOUR_MILISECONDS = 60 * 60 * 1000;
+
 export interface CreateTwitterStatParams {
   quoteCount: number;
   replyCount?: number;
   favoriteCount?: number;
   retweetCount?: number;
   viewCount?: number;
-  createdAt?: string;
+  createdAt?: Date;
   project?: string | number;
 }
 
@@ -54,14 +56,14 @@ export class TwitterStatsServiceImpl implements TwitterStatsService {
     return tweets;
   }
 
-  @ModeBasedCron('0 * * * *')
+  @ModeBasedCron('* * * * *')
   public async collectProjectTweetStats() {
-    const project = await this.projectService.list();
+    const projects = await this.projectService.list();
 
-    project.map(async (project) => {
+    projects.map(async (project) => {
       const tweets = await this.apifyFetch(
         project.socialName,
-        this.getDateTimeString(new Date(new Date().getTime() - 60 * 60 * 1000)),
+        this.getDateTimeString(new Date(new Date().getTime() - HOUR_MILISECONDS)),
         this.getDateTimeString(new Date()),
       );
 
@@ -72,7 +74,7 @@ export class TwitterStatsServiceImpl implements TwitterStatsService {
 
         const [tweetDocument] = await this.tweetModel.create([
           {
-            project: project.socialName,
+            project: project.id,
             retweetCount: tweet.retweetCount,
             replyCount: tweet.replyCount,
             favoriteCount: tweet.favoriteCount,

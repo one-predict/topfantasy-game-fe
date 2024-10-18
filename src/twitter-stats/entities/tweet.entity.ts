@@ -9,7 +9,7 @@ export interface TweetEntity {
   getFavoriteCount(): number;
   getLikeCount(): number;
   getViewCount(): number;
-  getCreatedAt(): string;
+  getCreatedAt(): Date;
   getProjectId(): string;
 }
 

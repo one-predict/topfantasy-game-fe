@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { ObjectId } from 'mongodb';
 
 export type TweetDocument = HydratedDocument<Tweet>;
 
@@ -21,8 +20,8 @@ export class Tweet {
   @Prop({ required: false, type: mongoose.Schema.Types.Number, default: 0 })
   viewCount: number;
 
-  @Prop({ required: false, type: mongoose.Schema.Types.String })
-  createdAt: string;
+  @Prop({ required: false, type: mongoose.Schema.Types.Date })
+  createdAt: Date;
 
   @Prop({ required: true, type: mongoose.Schema.Types.String })
   project: string;
