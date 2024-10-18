@@ -11,7 +11,6 @@ $pageMenuSize: 77px;
   height: calc(100% - $pageHeadSize - $pageMenuSize);
   z-index: 2;
   overflow-y: auto;
-  background-color: #07032B;
   transform: translateY(calc(100% + $pageHeadSize + $pageMenuSize));
   transition: transform 0.5s;
 }

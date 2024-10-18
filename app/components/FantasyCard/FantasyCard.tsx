@@ -1,19 +1,19 @@
 import clsx from 'clsx';
-import { FantasyProject } from '@api/FantasyProjectApi';
+import { FantasyTarget } from '@api/FantasyTargetApi';
 import Typography from '@components/Typography';
 import StarsDisplay from '@components/StarsDisplay';
-import FantasyPointsDisplay from '@components/FantasyPointsDisplay';
+import CoinsDisplay from '@components/CoinsDisplay';
 import styles from './FantasyCard.module.scss';
 
 export interface FantasyCardProps {
-  project: FantasyProject;
+  target: FantasyTarget;
   selected?: boolean;
   available?: boolean;
   fantasyPoints?: number;
-  onClick?: (project: FantasyProject) => void;
+  onClick?: (target: FantasyTarget) => void;
 }
 
-const FantasyCard = ({ project, selected, available, fantasyPoints, onClick }: FantasyCardProps) => {
+const FantasyCard = ({ target, selected, available, fantasyPoints, onClick }: FantasyCardProps) => {
   const cardComposedClassName = clsx(styles.fantasyCard, {
     [styles.selectedFantasyCard]: !!selected,
     [styles.notAvailableFantasyCard]: !available && !selected,
@@ -21,22 +21,22 @@ const FantasyCard = ({ project, selected, available, fantasyPoints, onClick }: F
 
   const handleCardClick = () => {
     if (available || selected) {
-      onClick?.(project);
+      onClick?.(target);
     }
   };
 
   return (
     <div onClick={handleCardClick} className={cardComposedClassName}>
-      <img className={styles.fantasyCardImage} src={project.imageUrl} alt={project.name} />
+      <img className={styles.fantasyCardImage} src={target.imageUrl} alt={target.name} />
       <StarsDisplay
         containerClassName={styles.starsDisplay}
         starIconClassName={styles.starIcon}
-        starsCount={project.stars}
+        starsCount={target.stars}
       />
       <Typography className={styles.socialName} color={selected ? 'black' : 'primary'} variant="subtitle2">
-        {project.socialName}
+        {target.socialName}
       </Typography>
-      {fantasyPoints !== undefined && <FantasyPointsDisplay variant="h3" points={fantasyPoints} />}
+      {fantasyPoints !== undefined && <CoinsDisplay humanize variant="h3" coins={fantasyPoints} />}
     </div>
   );
 };

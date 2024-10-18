@@ -1,6 +1,6 @@
-import { TournamentLeaderboard, TournamentParticipation } from '@api/TournamentApi';
+import { Tournament, TournamentLeaderboard, TournamentParticipation } from '@api/TournamentApi';
 import { User } from '@api/UserApi';
-import useFantasyProjectsByIdsQuery from '@hooks/queries/useFantasyProjectsByIdsQuery';
+import useFantasyTargetsByIdsQuery from '@hooks/queries/useFantasyTargetsByIdsQuery';
 import TournamentLeaderboardComponent from '@components/TournamentLeaderboard';
 import Loader from '@components/Loader';
 import FantasyCardsGrid from '@components/FantasyCardsGrid';
@@ -9,6 +9,7 @@ import styles from './TournamentDetails.module.scss';
 
 export interface TournamentDetailsProps {
   participationUser: User;
+  tournament: Tournament;
   tournamentParticipationRank: number | null;
   tournamentParticipation: TournamentParticipation | null;
   tournamentLeaderboard: TournamentLeaderboard | undefined;
@@ -16,13 +17,14 @@ export interface TournamentDetailsProps {
 
 const TournamentDetails = ({
   participationUser,
+  tournament,
   tournamentParticipationRank,
   tournamentLeaderboard,
   tournamentParticipation,
 }: TournamentDetailsProps) => {
-  const participationSelectedProjectIds = tournamentParticipation?.selectedProjectIds ?? [];
+  const selectedFantasyTargetIds = tournamentParticipation?.selectedFantasyTargetIds ?? [];
 
-  const { data: participationSelectedProjects } = useFantasyProjectsByIdsQuery(participationSelectedProjectIds);
+  const { data: selectedFantasyTargets } = useFantasyTargetsByIdsQuery(selectedFantasyTargetIds);
 
   return (
     <div className={styles.tournamentDetails}>
@@ -32,18 +34,16 @@ const TournamentDetails = ({
         tournamentParticipation={tournamentParticipation}
       />
       <div className={styles.sections}>
-        {participationSelectedProjects ? (
+        {selectedFantasyTargets ? (
           <FantasyCardsGrid
-            projects={participationSelectedProjects || []}
-            projectsFantasyPoints={tournamentParticipation?.projectsFantasyPoints}
+            fantasyTargets={selectedFantasyTargets || []}
+            targetsFantasyPoints={tournament.availableFantasyTargetsPoints}
           />
         ) : (
           <Loader size="small" centered />
         )}
         {tournamentLeaderboard ? (
-          <TournamentLeaderboardComponent
-            rankedParticipants={tournamentLeaderboard.rankedParticipants}
-          />
+          <TournamentLeaderboardComponent rankedParticipants={tournamentLeaderboard.rankedParticipants} />
         ) : (
           <Loader size="small" centered />
         )}

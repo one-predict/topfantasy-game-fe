@@ -9,7 +9,6 @@ export interface ButtonProps {
   disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   loading?: boolean;
-  darkLoader?: boolean;
 }
 
 const Button = ({ children, disabled, className, onClick, loading }: ButtonProps) => {
@@ -33,7 +32,7 @@ const Button = ({ children, disabled, className, onClick, loading }: ButtonProps
       onClick={handleButtonClick}
       disabled={disabled}
     >
-      <span>{loading ? <ButtonLoader dark /> : children}</span>
+      {loading ? <ButtonLoader dark /> : children}
     </button>
   );
 };

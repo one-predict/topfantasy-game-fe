@@ -16,9 +16,10 @@
   font-weight: 700;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  color: #0B0B0B;
 
-  & > span {
-    color: #0B0B0B;
+  &:hover {
+    background: linear-gradient(90deg, #E6B980 0%, #EACDA3 100%);
   }
 
   &:disabled {

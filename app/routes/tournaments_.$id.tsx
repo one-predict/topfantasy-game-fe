@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import {useNavigate, useParams} from '@remix-run/react';
+import { useNavigate, useParams } from '@remix-run/react';
 import AppSection from '@enums/AppSection';
 import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
@@ -10,8 +10,8 @@ import useTournamentStatus from '@hooks/useTournamentStatus';
 import useSession from '@hooks/useSession';
 import useJoinTournamentMutation from '@hooks/mutations/useJoinTournamentMutation';
 import useTournamentLeaderboardQuery from '@hooks/queries/useTournamentLeaderboardQuery';
-import useBackButton from "@hooks/useBackButton";
-import PageBody from '@components/PageBody';
+import useBackButton from '@hooks/useBackButton';
+import Page from '@components/Page';
 import Typography from '@components/Typography';
 import TournamentFantasyCardsPicker from '@components/TournamentFantasyCardsPicker';
 import TournamentDetails from '@components/TournamentDetails';
@@ -34,9 +34,13 @@ const TournamentPage = () => {
 
   const currentUser = useSession();
 
-  useBackButton(true, () => {
-    navigate('/tournaments');
-  }, []);
+  useBackButton(
+    true,
+    () => {
+      navigate('/tournaments');
+    },
+    [],
+  );
 
   const { data: tournament } = useTournamentByIdQuery(tournamentId || '');
   const { data: tournamentParticipation } = useTournamentParticipationQuery(tournament?.id || '');
@@ -47,8 +51,8 @@ const TournamentPage = () => {
 
   const { mutateAsync: joinTournament, isPending: isJoinTournamentInProgress } = useJoinTournamentMutation();
 
-  const handleConfirmFantasyProjects = useCallback(
-    async (selectedProjectIds: string[]) => {
+  const handleConfirmFantasyTargets = useCallback(
+    async (selectedFantasyTargetIds: string[]) => {
       if (!tournament) {
         return;
       }
@@ -69,14 +73,14 @@ const TournamentPage = () => {
 
       await joinTournament({
         tournamentId: tournament.id,
-        selectedProjectIds,
+        selectedFantasyTargetIds,
         walletAddress: wallet?.account.address,
       });
     },
     [joinTournament, tournament, wallet, tonConnectUI],
   );
 
-  const renderPageBodyContent = () => {
+  const renderPageContent = () => {
     if (!tournament || tournamentParticipation === undefined || !currentUser) {
       return <Loader size="large" centered />;
     }
@@ -93,7 +97,7 @@ const TournamentPage = () => {
       return (
         <TournamentFantasyCardsPicker
           tournament={tournament}
-          onConfirmProjects={handleConfirmFantasyProjects}
+          onConfirmFantasyTargets={handleConfirmFantasyTargets}
           isConfirmInProgress={isJoinTournamentInProgress}
         />
       );
@@ -110,12 +114,7 @@ const TournamentPage = () => {
     );
   };
 
-  return (
-    <PageBody>
-      {tournament && <Typography variant="h1">{tournament.title}</Typography>}
-      {renderPageBodyContent()}
-    </PageBody>
-  );
+  return <Page title={tournament?.title || ''}>{renderPageContent()}</Page>;
 };
 
 export default TournamentPage;

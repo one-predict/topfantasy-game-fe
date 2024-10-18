@@ -1,7 +1,7 @@
 import { Quest } from '@api/QuestApi';
 import QuestListItem from './QuestListItem';
-import styles from './QuestsList.module.scss';
 import Typography from '@components/Typography';
+import styles from './QuestsList.module.scss';
 
 export interface QuestsListProps {
   quests: Quest[];
@@ -15,7 +15,7 @@ const QuestsList = ({ quests, onViewQuest, noQuestsMessage = DEFAULT_NO_QUESTS_M
   return (
     <div className={styles.questsList}>
       {quests.length === 0 && (
-        <Typography variant="subtitle2" alignment="center">
+        <Typography variant="h6" alignment="center">
           {noQuestsMessage}
         </Typography>
       )}

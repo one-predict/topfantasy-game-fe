@@ -4,10 +4,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  border: 1px solid #8C8498;
+  border: 1px solid #696969;
   border-radius: 12px;
   padding: 16px;
-  background: radial-gradient(50% 50% at 70%, #351A55 0%, #190A31 100%);
+  background: #242424;
 }
 
 .inviteFriendsButtonsContainer {
@@ -21,8 +21,12 @@
 .copyButton {
   width: 20%;
 
-  & > svg {
-    width: 20px;
-    height: 20px;
+  & svg {
+    stroke: #000000;
   }
+}
+
+.pointsGainDescription {
+  display: flex;
+  column-gap: 8px;
 }

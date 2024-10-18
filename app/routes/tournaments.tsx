@@ -4,8 +4,7 @@ import AppSection from '@enums/AppSection';
 import useLatestTournamentsQuery from '@hooks/queries/useLatestTournamentsQuery';
 import Loader from '@components/Loader';
 import TournamentsList from '@components/TournamentsList';
-import PageBody from '@components/PageBody';
-import styles from './tournaments.module.scss';
+import Page from '@components/Page';
 
 export const handle = {
   appSection: AppSection.Tournaments,
@@ -21,14 +20,13 @@ const TournamentsPage = () => {
   };
 
   return (
-    <PageBody>
-      <div className={styles.tournamentsPageTitle}>Tournament</div>
+    <Page title="Tournaments">
       {tournaments ? (
         <TournamentsList tournaments={tournaments} onPlayTournamentClick={handlePlayTournamentClick} />
       ) : (
         <Loader centered />
       )}
-    </PageBody>
+    </Page>
   );
 };
 

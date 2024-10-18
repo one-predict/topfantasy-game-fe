@@ -1,7 +1,7 @@
 import { TournamentParticipant } from '@api/TournamentApi';
 import { TableBodyCell, TableRow } from '@components/Table';
 import UserAvatar from '@components/UserAvatar';
-import FantasyPointsDisplay from '@components/FantasyPointsDisplay';
+import CoinsDisplay from '@components/CoinsDisplay';
 import CupIcon from '@assets/icons/cup2.svg?react';
 import styles from './TournamentParticipantRow.module.scss';
 
@@ -36,7 +36,7 @@ const TournamentParticipantRow = ({ rowCellWidthConfig, participant, index }: To
         {participant.username}
       </TableBodyCell>
       <TableBodyCell className={styles.pointsText}>
-        <FantasyPointsDisplay points={participant.fantasyPoints} />
+        <CoinsDisplay humanize coins={participant.fantasyPoints} />
       </TableBodyCell>
     </TableRow>
   );

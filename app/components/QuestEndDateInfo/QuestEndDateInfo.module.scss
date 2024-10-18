@@ -1,0 +1,18 @@
+.questEndDateInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.clockIcon {
+  height: 1.15em;
+  width: auto;
+  vertical-align: middle;
+  aspect-ratio: 1 / 1;
+  margin-top: 1px;
+}
+
+.darkClockIcon {
+  fill: #0B0B0B;
+}

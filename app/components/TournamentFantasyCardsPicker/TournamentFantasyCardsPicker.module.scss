@@ -1,3 +1,9 @@
+.picker {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .tonConnectButton {
   position: fixed;
   bottom: 90px;

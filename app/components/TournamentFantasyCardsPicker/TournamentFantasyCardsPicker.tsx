@@ -1,54 +1,54 @@
 import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
-import { useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { Tournament } from '@api/TournamentApi';
-import { FantasyProject } from '@api/FantasyProjectApi';
+import { FantasyTarget } from '@api/FantasyTargetApi';
 import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
-import useFantasyProjectsByIdsQuery from '@hooks/queries/useFantasyProjectsByIdsQuery';
+import useFantasyTargetsByIdsQuery from '@hooks/queries/useFantasyTargetsByIdsQuery';
 import FantasyCardsPicker from '@components/FantasyCardsPicker';
 import Loader from '@components/Loader';
 import styles from './TournamentFantasyCardsPicker.module.scss';
 
 export interface TournamentFantasyCardsPickerProps {
   tournament: Tournament;
-  onConfirmProjects: (selectedProjectIds: string[]) => void;
+  onConfirmFantasyTargets: (selectedFantasyTargetIds: string[]) => void;
   isConfirmInProgress?: boolean;
 }
 
-const MAX_SELECTED_CARDS = 6;
+const MAX_CARDS_TO_SELECT = 5;
 const MAX_STARTS = 20;
 
 const TournamentFantasyCardsPicker = ({
   tournament,
-  onConfirmProjects,
+  onConfirmFantasyTargets,
   isConfirmInProgress,
 }: TournamentFantasyCardsPickerProps) => {
   const wallet = useTonWallet();
 
-  const { data: availableFantasyProjects } = useFantasyProjectsByIdsQuery(tournament.availableProjectIds);
+  const { data: availableFantasyTargets } = useFantasyTargetsByIdsQuery(tournament.availableFantasyTargetIds);
 
-  const [selectedProjectIds, setSelectedProjectIds] = useState<string[]>([]);
+  const [selectedFantasyTargetIds, setSelectedFantasyTargetIds] = useState<string[]>([]);
 
   const handleCardSelect = useCallback(
-    (project: FantasyProject) => {
-      setSelectedProjectIds((previousSelectedProjectIds) => {
-        return [...previousSelectedProjectIds, project.id];
+    (target: FantasyTarget) => {
+      setSelectedFantasyTargetIds((previousSelectedFantasyTargetIds) => {
+        return [...previousSelectedFantasyTargetIds, target.id];
       });
     },
-    [setSelectedProjectIds],
+    [setSelectedFantasyTargetIds],
   );
 
   const handleCardDeselect = useCallback(
-    (project: FantasyProject) => {
-      setSelectedProjectIds((previousSelectedProjectIds) => {
-        return previousSelectedProjectIds.filter((projectId) => projectId !== project.id);
+    (target: FantasyTarget) => {
+      setSelectedFantasyTargetIds((previousSelectedFantasyTargetIds) => {
+        return previousSelectedFantasyTargetIds.filter((targetId) => targetId !== target.id);
       });
     },
-    [setSelectedProjectIds],
+    [setSelectedFantasyTargetIds],
   );
 
   const handleConfirmClick = useCallback(() => {
-    onConfirmProjects(selectedProjectIds);
-  }, [onConfirmProjects, selectedProjectIds]);
+    onConfirmFantasyTargets(selectedFantasyTargetIds);
+  }, [onConfirmFantasyTargets, selectedFantasyTargetIds]);
 
   const renderTonConnectButtonAction = () => {
     return <TonConnectButton className={styles.tonConnectButton} />;
@@ -57,24 +57,26 @@ const TournamentFantasyCardsPicker = ({
   const shouldConnectTonWallet =
     tournament.paymentCurrency === TournamentPaymentCurrency.Ton && !wallet?.account.address;
 
+  const wrapConfirmButton = (button: ReactNode) => {
+    return shouldConnectTonWallet ? renderTonConnectButtonAction() : button;
+  };
+
   return (
-    <div>
-      {availableFantasyProjects ? (
-        <>
-          <FantasyCardsPicker
-            maxSelectedCards={MAX_SELECTED_CARDS}
-            maxStars={MAX_STARTS}
-            availableProjects={availableFantasyProjects}
-            selectedProjectIds={selectedProjectIds}
-            onCardSelect={handleCardSelect}
-            onCardDeselect={handleCardDeselect}
-            onConfirmClick={handleConfirmClick}
-            isLoading={isConfirmInProgress}
-            renderAction={shouldConnectTonWallet ? renderTonConnectButtonAction : undefined}
-          />
-        </>
+    <div className={styles.picker}>
+      {availableFantasyTargets ? (
+        <FantasyCardsPicker
+          maxSelectedCards={MAX_CARDS_TO_SELECT}
+          maxStars={MAX_STARTS}
+          availableFantasyTargets={availableFantasyTargets}
+          selectedFantasyTargetIds={selectedFantasyTargetIds}
+          onCardSelect={handleCardSelect}
+          onCardDeselect={handleCardDeselect}
+          onConfirmClick={handleConfirmClick}
+          isLoading={isConfirmInProgress}
+          wrapConfirmButton={wrapConfirmButton}
+        />
       ) : (
-        <Loader />
+        <Loader size="large" centered />
       )}
     </div>
   );

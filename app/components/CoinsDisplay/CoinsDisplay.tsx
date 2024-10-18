@@ -1,32 +1,30 @@
 import clsx from 'clsx';
-import Typography, { TypographyProps } from '@components/Typography';
-import OurTokenImage from '@components/OurTokenImage';
+import Typography, { TypographyVariant, TypographyTag } from '@components/Typography';
+import FantasyCoinIcon from '@assets/icons/fantasy-coin.svg?react';
+import { humanizeNumber } from '@utils/formatting';
 import styles from './CoinsDisplay.module.scss';
 
-export interface CoinsDisplayProps extends TypographyProps {
-  coins: number;
-  postfix?: string;
-  containerClassName?: string;
-  tokenImageClassName?: string;
-  tokenImageSrc?: string;
+export interface CoinsDisplayProps {
+  coins: number | undefined;
+  dark?: boolean;
+  humanize?: boolean;
+  variant?: TypographyVariant;
+  tag?: TypographyTag;
 }
 
-const CoinsDisplay = ({
-  containerClassName,
-  coins,
-  postfix,
-  tokenImageClassName,
-  tokenImageSrc = '/images/token.png',
-  ...typographyProps
-}: CoinsDisplayProps) => {
+const CoinsDisplay = ({ coins, dark, humanize, className, variant, tag }: CoinsDisplayProps) => {
+  const pointsToDisplay = humanize ? humanizeNumber(coins || 0) : coins;
+
   return (
-    <div className={clsx(styles.coinsDisplay, containerClassName)}>
-      <OurTokenImage className={clsx(styles.tokenImage, tokenImageClassName)} src={tokenImageSrc} />
-      <Typography {...typographyProps}>
-        {coins}
-        {postfix ? ` ${postfix}` : ''}
-      </Typography>
-    </div>
+    <Typography
+      color={dark ? 'black' : 'primary'}
+      variant={variant}
+      className={clsx(styles.coinsDisplay, className)}
+      tag={tag}
+    >
+      <FantasyCoinIcon className={clsx(styles.fantasyCoinIcon, dark && styles.darkFantasyCoinIcon)} />
+      <span>{coins !== undefined ? `+${pointsToDisplay}` : <>—</>}</span>
+    </Typography>
   );
 };
 

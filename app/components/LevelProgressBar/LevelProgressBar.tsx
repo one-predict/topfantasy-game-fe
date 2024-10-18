@@ -5,7 +5,7 @@ import styles from './LevelProgressBar.module.scss';
 const LevelProgressBar = () => {
   return (
     <div className={styles.levelProgressBar}>
-      <LabeledContent className={styles.levelLabel} labelVariant="subtitle2" row title="Level">
+      <LabeledContent color="secondary" className={styles.levelLabel} labelVariant="subtitle2" row title="Level">
         <Typography variant="h6" color="primary">
           1
         </Typography>

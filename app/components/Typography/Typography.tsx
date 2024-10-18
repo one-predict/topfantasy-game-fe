@@ -15,6 +15,7 @@ export interface TypographyProps {
   tag?: TypographyTag;
   children?: React.ReactNode;
   uppercase?: boolean;
+  centered?: boolean;
 }
 
 const tagByVariant: Record<TypographyVariant, TypographyTag> = {
@@ -37,6 +38,7 @@ const Typography = ({
   children,
   className,
   uppercase,
+  centered,
   tag = tagByVariant[variant],
   ...restProps
 }: TypographyProps) => {
@@ -45,6 +47,7 @@ const Typography = ({
     styles[`alignment-${alignment}`],
     styles[`color-${color}`],
     uppercase && styles.uppercase,
+    centered && styles.centered,
     className,
   );
 

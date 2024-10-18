@@ -1,6 +1,5 @@
 import Button from '@components/Button';
 import Typography from '@components/Typography';
-import OurTokenImage from '@components/OurTokenImage';
 import { TOKEN_NAME } from '@constants/token';
 import styles from './CoinsReward.module.scss';
 
@@ -14,7 +13,6 @@ const CoinsReward = ({ count, onClaimButtonClick }: CoinsRewardProps) => {
     <div className={styles.coinsRewardContainer}>
       <div className={styles.rewardInfoContainer}>
         <div className={styles.ourTokenImageContainer}>
-          <OurTokenImage className={styles.ourTokenImage} />
           <div className={styles.ourTokenImageGlow} />
         </div>
         <Typography className={styles.congratulationsText} alignment="center" variant="h1" color="gradient1">

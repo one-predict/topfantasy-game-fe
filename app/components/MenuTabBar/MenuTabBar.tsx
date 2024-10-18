@@ -3,8 +3,10 @@ import { useNavigate, useMatches } from '@remix-run/react';
 import clsx from 'clsx';
 import AppSection from '@enums/AppSection';
 import Typography from '@components/Typography';
-import LeaderBoardIcon from '@assets/icons/leaderboard.svg?react';
 import CupIcon from '@assets/icons/cup.svg?react';
+import FanscoreIcon from '@assets/icons/fanscore.svg?react';
+import RocketIcon from '@assets/icons/rocket.svg?react';
+import ProfileIcon from '@assets/icons/profile.svg?react';
 import styles from './MenuTabBar.module.scss';
 
 interface MenuSection {
@@ -26,10 +28,22 @@ const sections: MenuSection[] = [
     section: AppSection.Tournaments,
   },
   {
-    title: 'Leaderboard',
-    icon: <LeaderBoardIcon />,
-    link: '/leaderboard',
-    section: AppSection.Leaderboard,
+    title: 'Fanscore',
+    icon: <FanscoreIcon />,
+    link: '/fanscore',
+    section: AppSection.Fanscore,
+  },
+  {
+    title: 'Rewards',
+    icon: <RocketIcon />,
+    link: '/rewards',
+    section: AppSection.Rewards,
+  },
+  {
+    title: 'Profile',
+    icon: <ProfileIcon />,
+    link: '/profile',
+    section: AppSection.Profile,
   },
 ];
 

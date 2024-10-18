@@ -1,40 +1,40 @@
 import clsx from 'clsx';
-import { FantasyProject } from '@api/FantasyProjectApi';
+import { FantasyTarget } from '@api/FantasyTargetApi';
 import FantasyCard from '@components/FantasyCard';
 import styles from './FantasyCardsGrid.module.scss';
 
 export interface FantasyCardsGridProps {
   className?: string;
-  projects: FantasyProject[];
-  onCardSelect?: (project: FantasyProject) => void;
-  onCardDeselect?: (project: FantasyProject) => void;
-  isCardSelected?: (project: FantasyProject) => boolean;
-  isCardUnavailable?: (project: FantasyProject) => boolean;
-  projectsFantasyPoints?: Record<string, number>;
+  fantasyTargets: FantasyTarget[];
+  onCardSelect?: (target: FantasyTarget) => void;
+  onCardDeselect?: (target: FantasyTarget) => void;
+  isCardSelected?: (target: FantasyTarget) => boolean;
+  isCardUnavailable?: (target: FantasyTarget) => boolean;
+  targetsFantasyPoints?: Record<string, number>;
 }
 
 const FantasyCardsGrid = ({
   className,
-  projects,
+  fantasyTargets,
   onCardDeselect,
   onCardSelect,
   isCardSelected,
   isCardUnavailable,
-  projectsFantasyPoints,
+  targetsFantasyPoints,
 }: FantasyCardsGridProps) => {
   return (
     <div className={clsx(styles.fantasyCardsGrid, className)}>
-      {projects.map((project) => {
-        const selected = !!isCardSelected?.(project);
+      {fantasyTargets.map((target) => {
+        const selected = !!isCardSelected?.(target);
 
         return (
           <FantasyCard
-            key={project.id}
-            project={project}
+            key={target.id}
+            target={target}
             onClick={selected ? onCardDeselect : onCardSelect}
             selected={selected}
-            available={!isCardUnavailable?.(project)}
-            fantasyPoints={projectsFantasyPoints?.[project.id]}
+            available={!isCardUnavailable?.(target)}
+            fantasyPoints={targetsFantasyPoints?.[target.id]}
           />
         );
       })}

@@ -1,21 +1,22 @@
-.tournamentListCardContainer {
-  position: relative;
-}
-
 .tournamentListCard {
   position: relative;
-  overflow: hidden;
+  height: 276px;
+}
+
+.ticket {
   width: 100%;
-  padding: 46px 24px 16px 10px;
-  border-radius: 12px;
+  height: 100%;
+}
 
-  gap: 0;
-  clip-path: polygon(0% 14%, 12% 0, 100% 0%, 100% 85%, 92% 100%, 0% 100%, 0% 79%, 7% 70%, 7% 37%, 0% 28%);
-  background: linear-gradient(90deg, #F3E7E9 0%, #E3EEFF 99%, #E3EEFF 100%);
+.tournamentListCardContent {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 88%;
+}
 
-  & * {
-    z-index: 1;
-  }
+.fantasyCardsPreview {
+  margin-bottom: 8px;
 }
 
 .playButtonContainer {
@@ -28,17 +29,10 @@
   width: 120px;
 }
 
-.tournamentCardBackground {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 .tournamentAvailabilityInfo {
   position: absolute;
   top: 0;
-  left: 46px;
-  right: 36px;
+  right: 24px;
 }
 
 .titleWithParticipantsContainer {
@@ -47,7 +41,7 @@
   row-gap: 4px;
   width: calc(100% - 104px);
   min-height: 94px;
-  margin-top: 44px;
+  margin-top: 54px;
   padding-left: 30px;
 }
 
@@ -55,27 +49,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  width: calc(100% - 12px);
   padding-left: 30px;
   margin-bottom: 16px;
 }
 
 .tournamentImage {
-  width: 80px;
-  height: 80px;
   position: absolute;
   top: 25%;
-  right: 24px;
-  z-index: 2;
-}
-
-.tournamentTicketFragment {
-  position: absolute;
-  top: 31%;
-  left: -3%;
-  z-index: 9999;
-}
-
-.viewDetailsButton {
-  width: fit-content;
+  right: 16px;
+  width: 80px;
+  height: 80px;
 }

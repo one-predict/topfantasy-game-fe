@@ -1,0 +1,13 @@
+.cryptoCoinsDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.cryptoCurrencyImage {
+  height: 1.1em;
+  aspect-ratio: 1/1;
+  width: auto;
+  margin-top: 1px;
+}

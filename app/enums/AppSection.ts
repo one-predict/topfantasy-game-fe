@@ -1,8 +1,9 @@
 enum AppSection {
   Home = 'home',
-  Leaderboard = 'Leaderboard',
+  Fanscore = 'fanscore',
   Rewards = 'rewards',
   Tournaments = 'tournaments',
+  Profile = 'profile',
 }
 
 export default AppSection;

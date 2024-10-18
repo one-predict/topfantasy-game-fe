@@ -1,8 +1,11 @@
 .submitButton {
+  display: flex;
+  flex-direction: row;
   padding: 10px 12px;
   min-height: 46px;
 }
 
 .checkedIcon {
   margin-right: 8px;
+  stroke: #000000;
 }

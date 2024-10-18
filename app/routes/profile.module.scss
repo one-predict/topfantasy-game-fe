@@ -1,0 +1,21 @@
+.myFriendsSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  height: 100%;
+}
+
+.userDetailsSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.userDetailsLevelSection {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  width: 50%;
+}

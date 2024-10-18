@@ -1,4 +1,4 @@
-import { Navigate } from "react-router";
+import { Navigate } from 'react-router';
 import AppSection from '@enums/AppSection';
 
 export const handle = {
@@ -6,7 +6,7 @@ export const handle = {
 };
 
 const HomePage = () => {
-  return <Navigate to="/tournaments" />
+  return <Navigate to="/tournaments" />;
 };
 
 export default HomePage;

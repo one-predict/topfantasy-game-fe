@@ -1,3 +1,10 @@
 .tableHeadCell {
-  color: #439CB5;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  color: #FFFFFF;
+
+  &:not(:last-child) {
+    padding-right: 8px;
+  }
 }

@@ -2,7 +2,7 @@ import { User } from '@api/UserApi';
 import { TournamentParticipation } from '@api/TournamentApi';
 import Typography from '@components/Typography';
 import UserAvatar from '@components/UserAvatar';
-import FantasyPointsDisplay from '@components/FantasyPointsDisplay';
+import CoinsDisplay from '@components/CoinsDisplay';
 import styles from './TournamentParticipationInfo.module.scss';
 
 export interface TournamentParticipationInfoProps {
@@ -25,10 +25,11 @@ const TournamentParticipationInfo = ({
           <Typography>@{participationUser.username}</Typography>
         </div>
       </div>
-      <FantasyPointsDisplay
-        containerClassName={styles.fantasyPointsDisplay}
+      <CoinsDisplay
+        humanize
+        containerClassName={styles.coinsDisplay}
         variant="h4"
-        points={tournamentParticipation?.fantasyPoints}
+        coins={tournamentParticipation?.fantasyPoints}
       />
     </div>
   );

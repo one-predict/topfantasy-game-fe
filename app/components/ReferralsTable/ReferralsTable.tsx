@@ -9,22 +9,32 @@ export interface ReferralsTableProps {
 
 const REFERRALS_TABLE_CELLS = [
   {
-    title: 'Username',
-    width: 60,
+    title: 'Index',
+    width: 8,
   },
   {
-    title: 'Coins',
-    width: 40,
+    title: 'User',
+    width: 72,
+  },
+  {
+    title: 'Points',
+    width: 20,
   },
 ];
 
 const ReferralsTable = ({ className, referrals }: ReferralsTableProps) => {
-  const renderRow = (referral: Referral, rowCellWidthConfig: number[]) => (
-    <ReferralsTableRow key={referral.id} rowCellWidthConfig={rowCellWidthConfig} referral={referral} />
+  const renderRow = (referral: Referral, rowCellWidthConfig: number[], index: number) => (
+    <ReferralsTableRow index={index} key={referral.id} rowCellWidthConfig={rowCellWidthConfig} referral={referral} />
   );
 
   return (
-    <Table<Referral> className={className} cells={REFERRALS_TABLE_CELLS} items={referrals} renderRow={renderRow} />
+    <Table<Referral>
+      className={className}
+      cells={REFERRALS_TABLE_CELLS}
+      items={referrals}
+      renderRow={renderRow}
+      withoutTableHead
+    />
   );
 };
 

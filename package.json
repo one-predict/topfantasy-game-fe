@@ -10,7 +10,6 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
-    "@lueton/react-sparklines": "^2.0.0",
     "@remix-run/node": "^2.11.0",
     "@remix-run/react": "^2.11.0",
     "@tanstack/react-query": "^5.32.1",
@@ -22,22 +21,17 @@
     "eventemitter3": "^5.0.1",
     "isbot": "^4",
     "lodash": "^4.17.21",
-    "nanoid": "^5.0.6",
+    "millify": "^6.1.0",
     "react": "18.3.0-canary-ea17cc18f-20230807",
-    "react-collapse": "^5.1.1",
     "react-dom": "18.3.0-canary-ea17cc18f-20230807",
-    "react-toastify": "^10.0.5",
-    "use-resize-observer": "^9.1.0"
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.11.0",
     "@types/lodash": "^4.17.0",
     "@types/node": "22.1.0",
     "@types/react": "^18.2.66",
-    "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^18.2.22",
-    "@types/react-transition-group": "^4.4.10",
-    "@types/yallist": "^4.0.4",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8.57.0",

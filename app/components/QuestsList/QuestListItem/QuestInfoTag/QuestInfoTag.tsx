@@ -38,12 +38,16 @@ const QuestInfoTag = memo(({ className, quest }: QuestInfoTagProps) => {
   return (
     <div className={composedClassName}>
       {progressStatus === QuestProgressStatus.InProgress && hasEndDate && (
-        <QuestEndDateInfo questEndDate={quest.endsAt} variant="subtitle2" />
+        <>
+          <QuestEndDateInfo color="dark" questEndDate={quest.endsAt} variant="subtitle2" />
+        </>
       )}
       {progressStatus === QuestProgressStatus.Moderating && (
         <>
           {isModerationTimePassed ? <CheckedIcon className={styles.icon} /> : <ClockIcon className={styles.icon} />}
-          <Typography variant="subtitle2">{isModerationTimePassed ? 'Verified!' : 'Verification'}</Typography>
+          <Typography color="black" variant="subtitle2">
+            {isModerationTimePassed ? 'Verified!' : 'Verification'}
+          </Typography>
         </>
       )}
       {progressStatus === QuestProgressStatus.WaitingForClaim && (
@@ -57,7 +61,7 @@ const QuestInfoTag = memo(({ className, quest }: QuestInfoTagProps) => {
       {progressStatus === QuestProgressStatus.Completed && (
         <>
           <CheckedIcon className={styles.icon} />
-          <Typography color="black" variant="subtitle2">
+          <Typography color="secondary" variant="subtitle2">
             Completed
           </Typography>
         </>

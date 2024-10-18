@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  column-gap: 44px;
 }
 
 .statusBadge {
@@ -9,27 +10,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #190A31;
-  width: 86px;
+  background: linear-gradient(90deg, rgba(230, 185, 128, 0.5) 0%, rgba(234, 205, 163, 0.5) 100%);
+  min-width: 86px;
   height: 49px;
-  border-radius: 0px 12px 0px 12px;
+  border-radius: 0 12px 0 12px;
   font-size: 0.85rem;
-  font-weight: 400;
+  font-weight: 500;
   position: relative;
   color: black;
+  padding: 0 10px;
   text-transform: capitalize;
   z-index: 1;
 
   &::after {
     content: '';
+    position: absolute;
     background: linear-gradient(90deg, #E6B980 0%, #EACDA3 100%);
-    border-bottom : 10px solid #EACDA3;
-    border-right  : 0px solid transparent;
-    border-left   : 10px solid transparent;
-    position : absolute;
+    border-bottom: 10px solid #EACDA3;
+    border-right: 0 solid transparent;
+    border-left: 10px solid transparent;
     bottom: 0;
     right: 0;
-    z-index: 122;
   }
 
   &::before {
@@ -41,34 +42,29 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    z-index: 122;
   }
 }
 
 .upcomingStatusBadge {
   @extend .statusBadge;
-
-  background: linear-gradient(90deg, rgba(230, 185, 128, 0.5) 0%, rgba(234, 205, 163, 0.5) 100%);
 }
 
 .liveStatusBadge {
   @extend .statusBadge;
-
-  background: linear-gradient(90deg, #0FD850 0%, #F9F047 100%);
-  color: #000000;
 }
 
 .registrationStatusBadge {
   @extend .statusBadge;
-
-  background: linear-gradient(111.04deg, rgba(255, 223, 0, 1) 0%, rgba(255, 178, 0, 1) 47.26%, rgba(255, 153, 0, 1) 98.45%);
-  color: #000000;
 }
 
 .finishedStatusBadge {
   @extend .statusBadge;
 
-  background-color: #8C8498;
+  background: #B0B0B0;
+
+  &::after {
+    border-bottom: 10px solid #B0B0B0;
+  }
 }
 
 .remainingTime {

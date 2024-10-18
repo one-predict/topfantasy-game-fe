@@ -41,7 +41,6 @@ const QuestDetailsPopup = ({
           onVerify={onVerify}
           isRewardClaimingInProgress={isRewardClaimingInProgress}
           isVerificationInProgress={isVerificationInProgress}
-          endDateContainerClassName={styles.endDetailsContainer}
         />
       )}
     </Popup>

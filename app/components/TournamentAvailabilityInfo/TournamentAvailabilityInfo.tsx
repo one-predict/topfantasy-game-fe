@@ -58,7 +58,7 @@ const TournamentAvailabilityInfo = ({ className, tournament }: TournamentAvailab
             const timePrefix = TOURNAMENT_TIME_PREFIX_MAP.get(tournamentStatus);
 
             return (
-              <Typography color="black" variant="h5" className={styles.remainingTime}>
+              <Typography color="black" variant="body2" className={styles.remainingTime}>
                 {timePrefix} {remainingDays}d {remainingHours}h {remainingMinutes}m
               </Typography>
             );

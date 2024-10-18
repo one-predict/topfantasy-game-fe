@@ -1,14 +1,14 @@
 import { Tournament } from '@api/TournamentApi';
 import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
-import useFantasyProjectsByIdsQuery from '@hooks/queries/useFantasyProjectsByIdsQuery';
+import useFantasyTargetsByIdsQuery from '@hooks/queries/useFantasyTargetsByIdsQuery';
 import Button from '@components/Button';
 import Typography from '@components/Typography';
 import TournamentAvailabilityInfo from '@components/TournamentAvailabilityInfo';
 import LabeledContent from '@components/LabeledContent';
 import CoinsDisplay from '@components/CoinsDisplay';
-import FantasyPointsDisplay from '@components/FantasyPointsDisplay';
-import TournamentFragmentIcon from '@assets/icons/tournament-ticket-fragment.svg?react';
-import CardsShortPreview from '@app/components/CardsShortPreview/CardsShortPreview';
+import CryptoCoinsDisplay from '@components/CryptoCoinsDisplay';
+import FantasyCardsPreview from '@components/FantasyCardsPreview';
+import Ticket from '@assets/icons/ticket.svg?react';
 import styles from './TournamentListCard.module.scss';
 
 export interface TournamentListCardProps {
@@ -19,25 +19,28 @@ export interface TournamentListCardProps {
 const TournamentListCard = ({ tournament, onPlayTournamentClick }: TournamentListCardProps) => {
   const prizePool = tournament.entryPrice * tournament.participantsCount + tournament.staticPrizePool;
 
-  const { data: availableProjects } = useFantasyProjectsByIdsQuery(tournament.availableProjectIds);
+  const { data: availableFantasyTargets } = useFantasyTargetsByIdsQuery(tournament.availableFantasyTargetIds);
 
-  const renderCurrency = (amount: number) => {
-    if (tournament.paymentCurrency === TournamentPaymentCurrency.Points) {
-      return <FantasyPointsDisplay color="black" dark points={amount} />;
+  const renderTournamentPaymentCoin = (amount: number) => {
+    if (tournament.paymentCurrency === TournamentPaymentCurrency.Coins) {
+      return <CoinsDisplay dark coins={amount} variant="body2" />;
     }
 
-    return <CoinsDisplay variant="body2" color="black" coins={amount} tokenImageSrc="/images/ton-token.png" />;
+    return <CryptoCoinsDisplay dark variant="body2" currency="ton" coins={amount} />;
   };
 
   return (
-    <div className={styles.tournamentListCardContainer}>
-      <div className={styles.tournamentListCard}>
+    <div className={styles.tournamentListCard}>
+      <Ticket className={styles.ticket} />
+      <div className={styles.tournamentListCardContent}>
         <TournamentAvailabilityInfo className={styles.tournamentAvailabilityInfo} tournament={tournament} />
         <div className={styles.titleWithParticipantsContainer}>
           <Typography variant="h2" color="black">
             {tournament.title}
           </Typography>
-          {availableProjects && <CardsShortPreview projects={availableProjects} />}
+          {availableFantasyTargets && (
+            <FantasyCardsPreview className={styles.fantasyCardsPreview} fantasyTargets={availableFantasyTargets} />
+          )}
           <LabeledContent row title="Participants:" color="black">
             <Typography variant="body2" color="black">
               {tournament.participantsCount}
@@ -46,17 +49,19 @@ const TournamentListCard = ({ tournament, onPlayTournamentClick }: TournamentLis
         </div>
         <img src={tournament.imageUrl} className={styles.tournamentImage} alt={`${tournament.id}-image`} />
         <div className={styles.tournamentPrizeInfo}>
-          <LabeledContent title="Prize Pool">{renderCurrency(prizePool)}</LabeledContent>
-          <LabeledContent title="Entry Fee">{renderCurrency(tournament.entryPrice)}</LabeledContent>
+          <LabeledContent p title="Prize Pool:" row>
+            {renderTournamentPaymentCoin(prizePool)}
+          </LabeledContent>
+          <LabeledContent title="Entry Fee:" row>
+            {renderTournamentPaymentCoin(tournament.entryPrice)}
+          </LabeledContent>
         </div>
         <div className={styles.playButtonContainer}>
           <Button className={styles.playButton} onClick={() => onPlayTournamentClick(tournament)}>
             Play
           </Button>
         </div>
-        <div className={styles.tournamentCardBackground} />
       </div>
-      <TournamentFragmentIcon className={styles.tournamentTicketFragment} />
     </div>
   );
 };

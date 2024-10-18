@@ -76,13 +76,7 @@ const QuestDetails = ({
 
     if (progressStatus === QuestProgressStatus.WaitingForClaim) {
       return (
-        <Button
-          size="large"
-          className={styles.claimButton}
-          onClick={() => onClaimReward(quest)}
-          loading={isRewardClaimingInProgress}
-          darkLoader
-        >
+        <Button size="large" onClick={() => onClaimReward(quest)} loading={isRewardClaimingInProgress}>
           Claim
         </Button>
       );
@@ -105,7 +99,7 @@ const QuestDetails = ({
       </Typography>
       {hasEndDate && progressStatus !== QuestProgressStatus.Completed && (
         <div className={clsx(styles.endDateInfoContainer, endDateContainerClassName)}>
-          <QuestEndDateInfo variant="subtitle2" questEndDate={quest.endsAt} />
+          <QuestEndDateInfo variant="h5" questEndDate={quest.endsAt} />
         </div>
       )}
       <Typography alignment="center" variant="subtitle2" color="gray">

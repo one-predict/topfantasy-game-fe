@@ -1,12 +1,27 @@
+@use 'app/styles/mixins' as *;
+
 .coinsDisplay {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  column-gap: 8px;
-  width: fit-content;
+  column-gap: 2.5px;
+
+  & > span {
+    @include overflowed-ellipsis;
+  }
 }
 
-.tokenImage {
-  width: 24px;
-  height: 24px;
+.fantasyCoinIcon {
+  stroke: #E6B980;
+  height: 1.15rem;
+  width: auto;
+  aspect-ratio: 1/1;
+  min-height: 16px;
+  min-width: 16px;
+  margin-top: 1px;
+}
+
+.darkFantasyCoinIcon {
+  @extend .fantasyCoinIcon;
+
+  stroke: #0B0B0B;
 }

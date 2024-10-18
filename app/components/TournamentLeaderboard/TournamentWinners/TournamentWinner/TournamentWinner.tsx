@@ -2,16 +2,27 @@ import clsx from 'clsx';
 import { TournamentParticipant } from '@api/TournamentApi';
 import UserAvatar from '@components/UserAvatar';
 import Typography from '@components/Typography';
-import FantasyPointsDisplay from '@components/FantasyPointsDisplay';
+import CoinsDisplay from '@components/CoinsDisplay';
 import styles from './TournamentWinner.module.scss';
 
 export interface TournamentWinnerProps {
   className?: string;
   participant: TournamentParticipant;
   placeNumber: number;
+  podiumClassName?: string;
 }
 
+const FIRST_PLACE_NUMBER = 1;
+const SECOND_PLACE_NUMBER = 2;
+const THIRD_PLACE_NUMBER = 3;
+
 const TournamentWinner = ({ participant, placeNumber, className }: TournamentWinnerProps) => {
+  const podiumComposedClassName = clsx(styles.podium, {
+    [styles.firstPlacePodium]: placeNumber === FIRST_PLACE_NUMBER,
+    [styles.secondPlacePodium]: placeNumber === SECOND_PLACE_NUMBER,
+    [styles.thirdPlacePodium]: placeNumber === THIRD_PLACE_NUMBER,
+  });
+
   return (
     <div className={clsx(styles.winner, className)}>
       <UserAvatar className={styles.winnerAvatar} imageUrl={participant.imageUrl} username={participant.username} />
@@ -19,9 +30,9 @@ const TournamentWinner = ({ participant, placeNumber, className }: TournamentWin
         {participant.username}
       </Typography>
       <div className={clsx(styles.reward, placeNumber === 1 && styles.firstPlaceReward)}>
-        <FantasyPointsDisplay color="black" points={participant.fantasyPoints} dark />
+        <CoinsDisplay humanize dark coins={participant.fantasyPoints} />
       </div>
-      <div className={clsx(styles.podium, placeNumber === 1 && styles.firstPlacePodium)}>
+      <div className={podiumComposedClassName}>
         <Typography color="secondary" variant="h1">
           {placeNumber}
         </Typography>

@@ -19,12 +19,13 @@ export interface Tournament {
   registrationEndTimestamp: number;
   imageUrl?: string;
   paymentCurrency: TournamentPaymentCurrency;
-  availableProjectIds: Array<string>;
+  availableFantasyTargetIds: string[];
+  availableFantasyTargetsPoints: Record<string, number>;
 }
 
 export interface JoinTournamentParams {
   tournamentId: string;
-  selectedProjectIds: string[];
+  selectedFantasyTargetIds: string[];
   walletAddress?: string;
 }
 
@@ -40,8 +41,7 @@ export interface TournamentParticipation {
   userId: string;
   tournamentId: string;
   fantasyPoints: number;
-  selectedProjectIds: string[];
-  projectsFantasyPoints?: Record<string, number>;
+  selectedFantasyTargetIds: string[];
 }
 
 export interface TournamentLeaderboard {
@@ -104,7 +104,7 @@ export class HttpTournamentApi implements TournamentApi {
   public async joinTournament(params: JoinTournamentParams) {
     await this.client.makeCall<{ success: boolean }>(`/tournaments/${params.tournamentId}/participation`, 'POST', {
       walletAddress: params.walletAddress,
-      selectedProjectIds: params.selectedProjectIds,
+      selectedFantasyTargetIds: params.selectedFantasyTargetIds,
     });
   }
 }

@@ -22,15 +22,15 @@ const Table = <Item,>({ className, items, cells, renderRow, withoutTableHead }: 
   const rowCellWidthConfig = useMemo(() => {
     return cells.map((cell) => cell.width);
   }, [cells]);
+
   const tableHead = withoutTableHead ? null : (
     <TableHead rowCellWidthConfig={rowCellWidthConfig}>
       {cells.map((cell) => (
-        <TableHeadCell key={cell.title} width={cell.width}>
-          {cell.title}
-        </TableHeadCell>
+        <TableHeadCell key={cell.title}>{cell.title}</TableHeadCell>
       ))}
     </TableHead>
   );
+
   return (
     <div className={clsx(styles.table, className)}>
       {tableHead}

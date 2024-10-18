@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useMemo } from 'react';
-import { FantasyProject } from '@api/FantasyProjectApi';
+import { FantasyTarget } from '@api/FantasyTargetApi';
 import useKeyBy from '@hooks/useKeyBy';
 import useSumBy from '@hooks/useSumBy';
 import FantasyCardsGrid from '@components/FantasyCardsGrid';
@@ -10,72 +10,80 @@ import styles from './FantasyCardsPicker.module.scss';
 export interface FantasyCardsPickerProps {
   maxSelectedCards: number;
   maxStars: number;
-  availableProjects: FantasyProject[];
-  selectedProjectIds: string[];
-  onCardSelect?: (project: FantasyProject) => void;
-  onCardDeselect?: (project: FantasyProject) => void;
+  availableFantasyTargets: FantasyTarget[];
+  selectedFantasyTargetIds: string[];
+  onCardSelect?: (target: FantasyTarget) => void;
+  onCardDeselect?: (target: FantasyTarget) => void;
   onConfirmClick?: () => void;
   isLoading?: boolean;
-  renderAction?: () => ReactNode;
+  wrapConfirmButton?: (button: ReactNode) => ReactNode;
 }
 
 const FantasyCardsPicker = ({
   maxStars,
   maxSelectedCards,
-  availableProjects,
-  selectedProjectIds,
+  availableFantasyTargets,
+  selectedFantasyTargetIds,
   onCardSelect,
   onCardDeselect,
   onConfirmClick,
   isLoading,
-  renderAction,
+  wrapConfirmButton = (button) => button,
 }: FantasyCardsPickerProps) => {
-  const availableProjectsPool = useKeyBy(availableProjects, 'id');
+  const availableFantasyTargetsPool = useKeyBy(availableFantasyTargets, 'id');
 
-  const selectedProjects = useMemo(() => {
-    return selectedProjectIds.map((id) => availableProjectsPool[id]);
-  }, [selectedProjectIds, availableProjectsPool]);
+  const selectedFantasyTargets = useMemo(() => {
+    return selectedFantasyTargetIds.map((id) => availableFantasyTargetsPool[id]);
+  }, [selectedFantasyTargetIds, availableFantasyTargetsPool]);
 
-  const selectedProjectsPool = useKeyBy(selectedProjects, 'id');
-  const selectedProjectsStars = useSumBy(selectedProjects, 'stars');
-  const selectedProjectsCount = selectedProjects.length;
-  const availableStars = Math.max(0, maxStars - selectedProjectsStars);
+  const selectedFantasyTargetsPool = useKeyBy(selectedFantasyTargets, 'id');
+  const selectedFantasyTargetsStars = useSumBy(selectedFantasyTargets, 'stars');
+  const selectedFantasyTargetsCount = selectedFantasyTargets.length;
+  const availableStars = Math.max(0, maxStars - selectedFantasyTargetsStars);
 
   const checkCardSelected = useCallback(
-    (project: FantasyProject) => {
-      return !!selectedProjectsPool[project.id];
+    (target: FantasyTarget) => {
+      return !!selectedFantasyTargetsPool[target.id];
     },
-    [selectedProjectsPool],
+    [selectedFantasyTargetsPool],
   );
 
   const checkCardUnavailable = useCallback(
-    (project: FantasyProject) => {
-      return selectedProjectsCount >= maxSelectedCards || availableStars < project.stars;
+    (target: FantasyTarget) => {
+      return selectedFantasyTargetsCount >= maxSelectedCards || availableStars < target.stars;
     },
-    [availableStars, maxSelectedCards, selectedProjectsCount],
+    [availableStars, maxSelectedCards, selectedFantasyTargetsCount],
+  );
+
+  const cardsLeftToSelect = maxSelectedCards - selectedFantasyTargetsCount;
+
+  const renderConfirmButton = () => (
+    <Button loading={isLoading} onClick={onConfirmClick}>
+      Confirm
+    </Button>
   );
 
   return (
     <div className={styles.fantasyCardsPickerContainer}>
       <Typography variant="subtitle2">Select max {maxSelectedCards} cards you want to add to your portfolio</Typography>
       <FantasyCardsGrid
-        projects={availableProjects}
+        fantasyTargets={availableFantasyTargets}
         onCardSelect={onCardSelect}
         onCardDeselect={onCardDeselect}
         isCardSelected={checkCardSelected}
         isCardUnavailable={checkCardUnavailable}
       />
-      {(maxSelectedCards === selectedProjectIds.length || availableStars === 0) && (
-        <>
-          {renderAction ? (
-            renderAction()
-          ) : (
-            <Button loading={isLoading} onClick={onConfirmClick} className={styles.confirmButton}>
-              Confirm
-            </Button>
-          )}
-        </>
-      )}
+      <div className={styles.fixedContainer}>
+        {maxSelectedCards === selectedFantasyTargetIds.length ? (
+          wrapConfirmButton!(renderConfirmButton())
+        ) : (
+          <div className={styles.moreCardsInfo}>
+            <Typography alignment="center" variant="h5" color="black">
+              You need to select {cardsLeftToSelect} more {cardsLeftToSelect > 1 ? 'cards' : 'card'}
+            </Typography>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

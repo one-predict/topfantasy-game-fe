@@ -12,7 +12,7 @@ import { ApiProvider, ApiProviderValue } from '@providers/ApiProvider';
 import { HttpAuthApi } from '@api/AuthApi';
 import { HttpUserApi } from '@api/UserApi';
 import { HttpTournamentApi } from '@api/TournamentApi';
-import { HttpFantasyProjectCardApi } from '@api/FantasyProjectApi';
+import { HttpFantasyTargetCardApi } from '@api/FantasyTargetApi';
 import { HttpReferralApi } from '@api/ReferralApi';
 import { HttpRewardsNotificationApi } from '@api/RewardsNotificationApi';
 import { HttpQuestApi } from '@api/QuestApi';
@@ -57,6 +57,8 @@ export function HydrateFallback() {
   );
 }
 
+const TON_CONNECT_MANIFEST_URL = import.meta.env.VITE_TON_CONNECT_MANIFEST_URL;
+
 const App = () => {
   const matches = useMatches();
   const match = matches[matches.length - 1];
@@ -88,7 +90,7 @@ const App = () => {
       authApi: new HttpAuthApi(apiClient),
       userApi: new HttpUserApi(apiClient),
       tournamentApi: new HttpTournamentApi(apiClient),
-      fantasyProjectApi: new HttpFantasyProjectCardApi(apiClient),
+      fantasyTargetApi: new HttpFantasyTargetCardApi(apiClient),
       referralApi: new HttpReferralApi(apiClient),
       rewardsNotificationApi: new HttpRewardsNotificationApi(apiClient),
       questApi: new HttpQuestApi(apiClient),
@@ -100,7 +102,7 @@ const App = () => {
       <SDKProvider debug>
         <TelegramInit />
         <TonConnectUIProvider
-          manifestUrl="https://tonfantasy.s3.eu-central-1.amazonaws.com/tonconnect-manifest.json"
+          manifestUrl={TON_CONNECT_MANIFEST_URL}
           uiPreferences={{ theme: THEME.DARK }}
         >
           <QueryClientProvider client={queryClient}>
