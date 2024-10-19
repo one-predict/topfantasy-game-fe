@@ -1,10 +1,8 @@
 import { Tournament, TournamentLeaderboard, TournamentParticipation } from '@api/TournamentApi';
 import { User } from '@api/UserApi';
-import useFantasyTargetsByIdsQuery from '@hooks/queries/useFantasyTargetsByIdsQuery';
-import TournamentLeaderboardComponent from '@components/TournamentLeaderboard';
-import Loader from '@components/Loader';
-import FantasyCardsGrid from '@components/FantasyCardsGrid';
+import FantasyTargetsSection from "@components/TournamentDetails/FantasyTargetsSection";
 import TournamentParticipationInfo from '@components/TournamentParticipationInfo';
+import LeaderboardSection from "@components/TournamentDetails/LeaderboardSection";
 import styles from './TournamentDetails.module.scss';
 
 export interface TournamentDetailsProps {
@@ -22,10 +20,6 @@ const TournamentDetails = ({
   tournamentLeaderboard,
   tournamentParticipation,
 }: TournamentDetailsProps) => {
-  const selectedFantasyTargetIds = tournamentParticipation?.selectedFantasyTargetIds ?? [];
-
-  const { data: selectedFantasyTargets } = useFantasyTargetsByIdsQuery(selectedFantasyTargetIds);
-
   return (
     <div className={styles.tournamentDetails}>
       <TournamentParticipationInfo
@@ -34,19 +28,11 @@ const TournamentDetails = ({
         tournamentParticipation={tournamentParticipation}
       />
       <div className={styles.sections}>
-        {selectedFantasyTargets ? (
-          <FantasyCardsGrid
-            fantasyTargets={selectedFantasyTargets || []}
-            targetsFantasyPoints={tournament.availableFantasyTargetsPoints}
-          />
-        ) : (
-          <Loader size="small" centered />
-        )}
-        {tournamentLeaderboard ? (
-          <TournamentLeaderboardComponent rankedParticipants={tournamentLeaderboard.rankedParticipants} />
-        ) : (
-          <Loader size="small" centered />
-        )}
+        <FantasyTargetsSection
+          tournament={tournament}
+          fantasyTargetIds={tournamentParticipation?.selectedFantasyTargetIds ?? null}
+        />
+        <LeaderboardSection tournamentLeaderboard={tournamentLeaderboard} />
       </div>
     </div>
   );

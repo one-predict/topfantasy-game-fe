@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import Typography from '@components/Typography';
 import TournamentParticipantsTable from './TournamentParticipantsTable';
 import TournamentWinners from './TournamentWinners';
 import styles from './TournamentLeaderboard.module.scss';
@@ -25,23 +24,12 @@ const TournamentLeaderboard = ({ rankedParticipants }: TournamentLeaderboardProp
 
   return (
     <div className={styles.tournamentLeaderboard}>
-      <Typography color="primary" variant="h2">
-        Leaderboard
-      </Typography>
-      {rankedParticipants.length ? (
-        <>
-          <TournamentWinners className={styles.tournamentWinners} winners={winners} />
-          <TournamentParticipantsTable
-            startsFrom={WINNERS_COUNT}
-            className={styles.participantsTable}
-            rankedParticipants={restParticipants}
-          />
-        </>
-      ) : (
-        <Typography className={styles.noParticipantsText} alignment="center" color="secondary" variant="h4">
-          No participants yet!
-        </Typography>
-      )}
+      <TournamentWinners className={styles.tournamentWinners} winners={winners} />
+      <TournamentParticipantsTable
+        startsFrom={WINNERS_COUNT}
+        className={styles.participantsTable}
+        rankedParticipants={restParticipants}
+      />
     </div>
   );
 };

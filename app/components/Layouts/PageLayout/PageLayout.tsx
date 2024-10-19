@@ -1,20 +1,14 @@
-import { CSSProperties, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import clsx from 'clsx';
 import styles from './PageLayout.module.scss';
 
-export interface PageLayoutBackground {
-  image: string;
-  position: CSSProperties['backgroundPosition'];
-  overlay: boolean;
-}
-
 interface PageLayoutProps {
+  className?: string;
   children?: ReactNode;
-  background?: PageLayoutBackground;
 }
 
-const PageLayout = ({ children, background }: PageLayoutProps) => {
-  return <div className={clsx(styles.pageLayout, background?.overlay && styles.pageLayoutWithOverlay)}>{children}</div>;
+const PageLayout = ({ children, className }: PageLayoutProps) => {
+  return <div className={clsx(styles.pageLayout, className)}>{children}</div>;
 };
 
 export default PageLayout;
