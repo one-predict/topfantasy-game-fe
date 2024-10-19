@@ -1,20 +1,18 @@
-import { TournamentLeaderboard } from "@api/TournamentApi";
-import SectionContainer from "@components/TournamentDetails/SectionContainer";
-import TournamentLeaderboardComponent from "@components/TournamentLeaderboard/TournamentLeaderboard";
-import Loader from "@components/Loader";
-import styles from "@components/TournamentLeaderboard/TournamentLeaderboard.module.scss";
-import Typography from "@components/Typography";
+import { TournamentLeaderboard, TournamentParticipant } from '@api/TournamentApi';
+import SectionContainer from '@components/TournamentDetails/SectionContainer';
+import TournamentLeaderboardComponent from '@components/TournamentLeaderboard/TournamentLeaderboard';
+import Loader from '@components/Loader';
+import Typography from '@components/Typography';
 
 export interface LeaderboardSectionProps {
   tournamentLeaderboard: TournamentLeaderboard | undefined;
+  onViewParticipantCards: (participant: TournamentParticipant) => void;
 }
 
-const LeaderboardSection = ({ tournamentLeaderboard }: LeaderboardSectionProps) => {
+const LeaderboardSection = ({ tournamentLeaderboard, onViewParticipantCards }: LeaderboardSectionProps) => {
   const renderSectionContent = () => {
     if (!tournamentLeaderboard) {
-      return (
-        <Loader size="small" centered />
-      );
+      return <Loader size="small" centered />;
     }
 
     if (!tournamentLeaderboard.rankedParticipants.length) {
@@ -26,15 +24,14 @@ const LeaderboardSection = ({ tournamentLeaderboard }: LeaderboardSectionProps) 
     }
 
     return (
-      <TournamentLeaderboardComponent rankedParticipants={tournamentLeaderboard.rankedParticipants} />
+      <TournamentLeaderboardComponent
+        rankedParticipants={tournamentLeaderboard.rankedParticipants}
+        onViewParticipantCards={onViewParticipantCards}
+      />
     );
-  }
+  };
 
-  return (
-    <SectionContainer title="Leaderboard">
-      {renderSectionContent()}
-    </SectionContainer>
-  );
+  return <SectionContainer title="Leaderboard">{renderSectionContent()}</SectionContainer>;
 };
 
 export default LeaderboardSection;

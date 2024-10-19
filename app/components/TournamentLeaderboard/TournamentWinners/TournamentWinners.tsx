@@ -6,9 +6,10 @@ import styles from './TournamentWinners.module.scss';
 export interface TournamentParticipantsTableProps {
   className?: string;
   winners: TournamentParticipant[];
+  onWinnerClick?: (winner: TournamentParticipant) => void;
 }
 
-const TournamentWinners = ({ className, winners }: TournamentParticipantsTableProps) => {
+const TournamentWinners = ({ className, winners, onWinnerClick }: TournamentParticipantsTableProps) => {
   return (
     <div className={styles.winnersContainer}>
       {winners.map((winner, index) => {
@@ -18,6 +19,7 @@ const TournamentWinners = ({ className, winners }: TournamentParticipantsTablePr
             key={winner.id}
             participant={winner}
             placeNumber={index + 1}
+            onClick={() => onWinnerClick?.(winner)}
           />
         );
       })}

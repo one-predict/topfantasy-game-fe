@@ -9,11 +9,17 @@ export interface TournamentParticipantRowProps {
   rowCellWidthConfig: number[];
   participant: TournamentParticipant;
   index: number;
+  onViewParticipantCards?: (participant: TournamentParticipant) => void;
 }
 
 const MAX_INDEX_FOR_CUP_ICON = 10;
 
-const TournamentParticipantRow = ({ rowCellWidthConfig, participant, index }: TournamentParticipantRowProps) => {
+const TournamentParticipantRow = ({
+  rowCellWidthConfig,
+  participant,
+  index,
+  onViewParticipantCards,
+}: TournamentParticipantRowProps) => {
   return (
     <TableRow cellWidthConfig={rowCellWidthConfig}>
       <TableBodyCell
@@ -38,6 +44,7 @@ const TournamentParticipantRow = ({ rowCellWidthConfig, participant, index }: To
       <TableBodyCell className={styles.pointsText}>
         <CoinsDisplay humanize coins={participant.fantasyPoints} />
       </TableBodyCell>
+      <TableBodyCell onClick={() => onViewParticipantCards?.(participant)}>View</TableBodyCell>
     </TableRow>
   );
 };

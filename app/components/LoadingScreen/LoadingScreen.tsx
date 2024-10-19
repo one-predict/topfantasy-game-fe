@@ -1,6 +1,6 @@
 import { PageLayout } from '@components/Layouts';
 import Typography from '@components/Typography';
-import Loader from "@components/Loader";
+import Loader from '@components/Loader';
 import styles from './LoadingScreen.module.scss';
 
 const LoadingScreen = () => {

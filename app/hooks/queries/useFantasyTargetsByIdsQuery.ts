@@ -1,5 +1,5 @@
-import {skipToken, useQuery} from '@tanstack/react-query';
-import { FantasyTarget } from "@api/FantasyTargetApi";
+import { skipToken, useQuery } from '@tanstack/react-query';
+import { FantasyTarget } from '@api/FantasyTargetApi';
 import { useFantasyTargetApi } from '@providers/ApiProvider';
 
 const PLACEHOLDER_DATA = [] as FantasyTarget[];

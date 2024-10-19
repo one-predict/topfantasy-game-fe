@@ -1,4 +1,4 @@
-import {ReactNode, useEffect} from 'react';
+import { ReactNode, useEffect } from 'react';
 import { mockTelegramEnv, parseInitData } from '@telegram-apps/sdk';
 import { useLaunchParams } from '@telegram-apps/sdk-react';
 import useCurrentUserQuery from '@hooks/queries/useCurrentUserQuery';
@@ -7,7 +7,7 @@ import useAsyncEffect from '@hooks/useAsyncEffect';
 import useMyRewardsNotificationsQuery from '@hooks/queries/useMyRewardsNotificationsQuery';
 import { SessionProvider } from '@providers/SessionProvider';
 import LoadingScreen from '@components/LoadingScreen';
-import useDelayedState from "@hooks/useDelayedState";
+import useDelayedState from '@hooks/useDelayedState';
 
 export interface AppInitializerProps {
   children: ReactNode;
@@ -71,7 +71,7 @@ const AppInitializer = ({ children }: AppInitializerProps) => {
 
   useEffect(() => {
     setLoading(!isCriticalDataLoaded);
-  }, [isCriticalDataLoaded]);
+  }, [isCriticalDataLoaded, setLoading]);
 
   const renderApplication = () => {
     if (loading) {

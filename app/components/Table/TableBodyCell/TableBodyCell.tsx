@@ -7,9 +7,16 @@ export interface TableBodyCellProps {
   overflowed?: boolean;
   beforeOverflowedContent?: ReactNode;
   children: ReactNode;
+  onClick?: () => void;
 }
 
-const TableBodyCell = ({ children, className, overflowed = false, beforeOverflowedContent }: TableBodyCellProps) => {
+const TableBodyCell = ({
+  children,
+  className,
+  overflowed = false,
+  beforeOverflowedContent,
+  onClick,
+}: TableBodyCellProps) => {
   const getTableBodyCellContent = () => {
     if (typeof children === 'number') {
       return children;
@@ -21,7 +28,7 @@ const TableBodyCell = ({ children, className, overflowed = false, beforeOverflow
   const tableBodyCellContent = getTableBodyCellContent();
 
   return (
-    <div className={clsx(styles.tableBodyCell, className)}>
+    <div onClick={onClick} className={clsx(styles.tableBodyCell, className)}>
       {beforeOverflowedContent}
       {overflowed && <div className={styles.overflowedTableBodyCellContainer}>{tableBodyCellContent}</div>}
       {!overflowed && tableBodyCellContent}

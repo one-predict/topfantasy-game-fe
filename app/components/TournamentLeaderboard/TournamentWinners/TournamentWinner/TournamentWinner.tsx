@@ -10,13 +10,14 @@ export interface TournamentWinnerProps {
   participant: TournamentParticipant;
   placeNumber: number;
   podiumClassName?: string;
+  onClick?: () => void;
 }
 
 const FIRST_PLACE_NUMBER = 1;
 const SECOND_PLACE_NUMBER = 2;
 const THIRD_PLACE_NUMBER = 3;
 
-const TournamentWinner = ({ participant, placeNumber, className }: TournamentWinnerProps) => {
+const TournamentWinner = ({ onClick, participant, placeNumber, className }: TournamentWinnerProps) => {
   const podiumComposedClassName = clsx(styles.podium, {
     [styles.firstPlacePodium]: placeNumber === FIRST_PLACE_NUMBER,
     [styles.secondPlacePodium]: placeNumber === SECOND_PLACE_NUMBER,
@@ -24,7 +25,7 @@ const TournamentWinner = ({ participant, placeNumber, className }: TournamentWin
   });
 
   return (
-    <div className={clsx(styles.winner, className)}>
+    <div onClick={onClick} className={clsx(styles.winner, className)}>
       <UserAvatar className={styles.winnerAvatar} imageUrl={participant.imageUrl} username={participant.username} />
       <Typography color="primary" variant="body1">
         {participant.username}

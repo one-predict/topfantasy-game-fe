@@ -1,8 +1,8 @@
-import { Tournament, TournamentLeaderboard, TournamentParticipation } from '@api/TournamentApi';
+import { Tournament, TournamentLeaderboard, TournamentParticipant, TournamentParticipation } from '@api/TournamentApi';
 import { User } from '@api/UserApi';
-import FantasyTargetsSection from "@components/TournamentDetails/FantasyTargetsSection";
+import FantasyTargetsSection from '@components/TournamentDetails/FantasyTargetsSection';
 import TournamentParticipationInfo from '@components/TournamentParticipationInfo';
-import LeaderboardSection from "@components/TournamentDetails/LeaderboardSection";
+import LeaderboardSection from '@components/TournamentDetails/LeaderboardSection';
 import styles from './TournamentDetails.module.scss';
 
 export interface TournamentDetailsProps {
@@ -11,6 +11,7 @@ export interface TournamentDetailsProps {
   tournamentParticipationRank: number | null;
   tournamentParticipation: TournamentParticipation | null;
   tournamentLeaderboard: TournamentLeaderboard | undefined;
+  onViewParticipantCards: (participant: TournamentParticipant) => void;
 }
 
 const TournamentDetails = ({
@@ -19,6 +20,7 @@ const TournamentDetails = ({
   tournamentParticipationRank,
   tournamentLeaderboard,
   tournamentParticipation,
+  onViewParticipantCards,
 }: TournamentDetailsProps) => {
   return (
     <div className={styles.tournamentDetails}>
@@ -32,7 +34,10 @@ const TournamentDetails = ({
           tournament={tournament}
           fantasyTargetIds={tournamentParticipation?.selectedFantasyTargetIds ?? null}
         />
-        <LeaderboardSection tournamentLeaderboard={tournamentLeaderboard} />
+        <LeaderboardSection
+          tournamentLeaderboard={tournamentLeaderboard}
+          onViewParticipantCards={onViewParticipantCards}
+        />
       </div>
     </div>
   );

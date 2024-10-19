@@ -101,10 +101,7 @@ const App = () => {
     <ErrorBoundary>
       <SDKProvider debug>
         <TelegramInit />
-        <TonConnectUIProvider
-          manifestUrl={TON_CONNECT_MANIFEST_URL}
-          uiPreferences={{ theme: THEME.DARK }}
-        >
+        <TonConnectUIProvider manifestUrl={TON_CONNECT_MANIFEST_URL} uiPreferences={{ theme: THEME.DARK }}>
           <QueryClientProvider client={queryClient}>
             <ApiProvider value={services}>
               <AppInitializer>

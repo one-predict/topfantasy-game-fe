@@ -1,8 +1,9 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from '@remix-run/react';
 import AppSection from '@enums/AppSection';
 import TournamentPaymentCurrency from '@enums/TournamentPaymentCurrency';
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
+import { TournamentParticipant } from '@api/TournamentApi';
 import useTournamentByIdQuery from '@hooks/queries/useTournamentByIdQuery';
 import useTournamentParticipationRankQuery from '@hooks/queries/useTournamentParticipationRankQuery';
 import useTournamentParticipationQuery from '@hooks/queries/useTournamentParticipationQuery';
@@ -16,6 +17,8 @@ import Typography from '@components/Typography';
 import TournamentFantasyCardsPicker from '@components/TournamentFantasyCardsPicker';
 import TournamentDetails from '@components/TournamentDetails';
 import Loader from '@components/Loader';
+import Popup from '@components/Popup';
+import TournamentParticipantCardsView from '@components/TournamentParticipantCardsView';
 import { prepareSendTransaction } from '@utils/ton-transactions';
 import styles from './tournament.module.scss';
 
@@ -27,6 +30,8 @@ const VITE_TON_TOURNAMENT_ADDRESS = import.meta.env.VITE_TON_TOURNAMENT_ADDRESS;
 
 const TournamentPage = () => {
   const { id: tournamentId } = useParams<{ id: string }>();
+
+  const [participantToShowCardFor, setParticipantToShowCardFor] = useState<TournamentParticipant | null>();
 
   const navigate = useNavigate();
   const wallet = useTonWallet();
@@ -80,6 +85,13 @@ const TournamentPage = () => {
     [joinTournament, tournament, wallet, tonConnectUI],
   );
 
+  const handleViewParticipantCards = useCallback(
+    (participant: TournamentParticipant) => {
+      setParticipantToShowCardFor(participant);
+    },
+    [setParticipantToShowCardFor],
+  );
+
   const renderPageContent = () => {
     if (!tournament || tournamentParticipation === undefined || !currentUser) {
       return <Loader size="large" centered />;
@@ -110,11 +122,24 @@ const TournamentPage = () => {
         tournamentParticipationRank={tournamentParticipationRank ?? null}
         tournamentParticipation={tournamentParticipation}
         tournamentLeaderboard={tournamentLeaderboard}
+        onViewParticipantCards={handleViewParticipantCards}
       />
     );
   };
 
-  return <Page title={tournament?.title || ''}>{renderPageContent()}</Page>;
+  return (
+    <Page title={tournament?.title || ''}>
+      {renderPageContent()}
+      <Popup isOpen={!!participantToShowCardFor} onClose={() => setParticipantToShowCardFor(null)}>
+        {participantToShowCardFor && tournament && (
+          <TournamentParticipantCardsView
+            fantasyTargetsPoints={tournament.availableFantasyTargetsPoints}
+            participant={participantToShowCardFor}
+          />
+        )}
+      </Popup>
+    </Page>
+  );
 };
 
 export default TournamentPage;

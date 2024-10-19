@@ -34,6 +34,7 @@ export interface TournamentParticipant {
   username: string;
   imageUrl: string;
   fantasyPoints: number;
+  selectedFantasyTargetIds: string[];
 }
 
 export interface TournamentParticipation {
@@ -45,12 +46,7 @@ export interface TournamentParticipation {
 }
 
 export interface TournamentLeaderboard {
-  rankedParticipants: Array<{
-    id: string;
-    username: string;
-    imageUrl: string;
-    fantasyPoints: number;
-  }>;
+  rankedParticipants: Array<TournamentParticipant>;
 }
 
 export interface TournamentApi {

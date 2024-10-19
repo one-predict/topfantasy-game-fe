@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Typography from "@components/Typography";
+import Typography from '@components/Typography';
 import styles from './SectionContainer.module.scss';
 
 export interface SectionContainerProps {
@@ -10,7 +10,7 @@ export interface SectionContainerProps {
 const SectionContainer = ({ children, title }: SectionContainerProps) => {
   return (
     <div className={styles.sectionContainer}>
-      <Typography color="primary" variant="h2">
+      <Typography className={styles.sectionTitle} color="primary" variant="h2">
         {title}
       </Typography>
       {children}

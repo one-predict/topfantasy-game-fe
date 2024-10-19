@@ -8,7 +8,7 @@ export interface FantasyCardsGridProps {
   fantasyTargets: FantasyTarget[];
   onCardSelect?: (target: FantasyTarget) => void;
   onCardDeselect?: (target: FantasyTarget) => void;
-  isCardSelected?: (target: FantasyTarget) => boolean;
+  isCardSelected?: ((target: FantasyTarget) => boolean) | boolean;
   isCardUnavailable?: (target: FantasyTarget) => boolean;
   targetsFantasyPoints?: Record<string, number>;
 }
@@ -25,7 +25,7 @@ const FantasyCardsGrid = ({
   return (
     <div className={clsx(styles.fantasyCardsGrid, className)}>
       {fantasyTargets.map((target) => {
-        const selected = !!isCardSelected?.(target);
+        const selected = typeof isCardSelected === 'function' ? isCardSelected(target) : !!isCardSelected;
 
         return (
           <FantasyCard

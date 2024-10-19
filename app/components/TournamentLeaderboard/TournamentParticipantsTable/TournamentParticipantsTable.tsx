@@ -6,20 +6,25 @@ export interface TournamentParticipantsTableProps {
   className?: string;
   startsFrom?: number;
   rankedParticipants: Array<TournamentParticipant>;
+  onViewParticipantCards?: (participant: TournamentParticipant) => void;
 }
 
 const TOURNAMENTS_TABLE_CELLS = [
   {
     title: 'Rank',
-    width: 20,
+    width: 15,
   },
   {
     title: 'Username',
-    width: 60,
+    width: 55,
   },
   {
     title: 'Points',
     width: 20,
+  },
+  {
+    title: 'Cards',
+    width: 10,
   },
 ];
 
@@ -27,6 +32,7 @@ const TournamentParticipantsTable = ({
   startsFrom = 0,
   className,
   rankedParticipants,
+  onViewParticipantCards,
 }: TournamentParticipantsTableProps) => {
   const renderRow = (participant: TournamentParticipant, rowCellWidthConfig: number[], index: number) => {
     return (
@@ -35,6 +41,7 @@ const TournamentParticipantsTable = ({
         rowCellWidthConfig={rowCellWidthConfig}
         participant={participant}
         index={index + startsFrom}
+        onViewParticipantCards={onViewParticipantCards}
       />
     );
   };
